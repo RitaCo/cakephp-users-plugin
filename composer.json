@@ -20,12 +20,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Users\\": "src"
+			"RitaUsers\\": "src"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Users\\Test\\": "tests",
+			"RitaUsers\\Test\\": "tests",
 			"Cake\\Test\\Fixture\\": "vendor/cakephp/cakephp/tests/Fixture"
 		}
 	},
@@ -34,6 +34,6 @@
 		"issues": "https://github.com/RitaCo/cakephp-users-plugin/issues"
 	},
 	"extra": {
-		"installer-name": "Users"
+		"installer-name": "RitaUsers"
 	}
 }

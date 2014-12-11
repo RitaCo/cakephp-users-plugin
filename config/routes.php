@@ -1,6 +1,8 @@
 <?php
 use Cake\Routing\Router;
 
-Router::plugin('Users', function ($routes) {
+Router::plugin('RitaUsers', [ 'path' => '/users' ], function ($routes) {
+	
+ 	$routes->connect('/',['controller' => 'index']);
 	$routes->fallbacks();
 });

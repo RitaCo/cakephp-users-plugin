@@ -2,9 +2,10 @@
 	"name": "ritaco/users",
 	"type": "cakephp-plugin",
 	"description": "This plugin is a set of tools for user handling like registration, login, email verification, password reset and much more.",
-    "keywords": ["users", "user-management", "login", "registration", "signup"],
+	"keywords": ["cakephp", "plugin", "users", "user-management", "login", "registration", "signup"],
 	"homepage": "https://github.com/RitaCo/cakephp-users-plugin",
 	"license": "MIT",
+	"version": "0.1.0",
 	"authors": [
 		{
 			"name": "Saleh Souzanchi",

@@ -1,5 +1,5 @@
 {
-	"name": "ritaco/cakephp-users",
+	"name": "ritaco/users",
 	"type": "cakephp-plugin",
 	"description": "This plugin is a set of tools for user handling like registration, login, email verification, password reset and much more.",
     "keywords": ["users", "user-management", "login", "registration", "signup"],

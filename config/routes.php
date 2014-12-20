@@ -1,8 +1,11 @@
 <?php
 use Cake\Routing\Router;
+Router::prefix('admin',function($routes){
 
-Router::plugin('RitaUsers', [ 'path' => '/users' ], function ($routes) {
-	
- 	$routes->connect('/',['controller' => 'index']);
-	$routes->fallbacks();
+    $routes->plugin('RitaUsers', [ 'path' => '/userManger' ], function ($routes) {
+    	
+     	$routes->connect('/',['controller' => 'Dashboard']);
+    	$routes->fallbacks('InflectedRoute');
+    });
+
 });

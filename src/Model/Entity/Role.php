@@ -6,7 +6,7 @@ use Cake\ORM\Entity;
 /**
  * UserRole Entity.
  */
-class UserRole extends Entity {
+class Role extends Entity {
 
 /**
  * Fields that can be mass assigned using newEntity() or patchEntity().

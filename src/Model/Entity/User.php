@@ -1,8 +1,9 @@
 <?php
 namespace RitaUsers\Model\Entity;
 
+use Cake\Log\Log;
 use Cake\ORM\Entity;
-
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * User Entity.
  */
@@ -13,22 +14,16 @@ class User extends Entity {
  *
  * @var array
  */
-	protected $_accessible = [
-		'last_name' => true,
-		'first_name' => true,
-		'password' => true,
-		'email' => true,
-		'email_verified' => true,
-		'email_token' => true,
-		'email_token_expires' => true,
-		'role_id' => true,
-		'active' => true,
-		'last_action' => true,
-		'last_login' => true,
-		'is_admin' => true,
-		'locked' => true,
-		'hidden' => true,
-		'role' => true,
-	];
+	protected $_accessible = [ "*" => true	];
 
+    protected function _setPassword($password) {
+
+        if(empty($password))
+        {
+            return $password;
+        }
+        $password = (new DefaultPasswordHasher)->hash($password);
+                    Log::debug($password);        
+        return $password;
+    }
 }

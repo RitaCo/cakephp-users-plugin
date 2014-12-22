@@ -16,7 +16,8 @@ class UsersController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->set('users', $this->paginate($this->Users));
+	   $query = $this->Users->find('all')->contain(['Roles' => ['fields' => ['id','name']]]);
+		$this->set('users', $this->paginate($query));
 	}
 
 /**
@@ -48,7 +49,8 @@ class UsersController extends AppController {
 				$this->Flash->error('The user could not be saved. Please, try again.');
 			}
 		}
-		$this->set(compact('user'));
+        $roles = $this->Users->Roles->find('list');
+		$this->set(compact('user','roles'));
 	}
 
 /**

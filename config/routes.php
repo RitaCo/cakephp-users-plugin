@@ -21,3 +21,10 @@ Router::scope('/',function($routes){
 
 
 
+Router::scope('/client',['section' => 'clients'],function($routes)
+{
+        
+     	$routes->connect('/profile/:action/*',['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index']);
+    
+    
+});

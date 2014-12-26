@@ -677,7 +677,7 @@ a {
   border-top: none ;
 }
 .com-input {
-  background: #f9f9f9;
+  background-color: #EFEFEF;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #ddd;
   position: relative;
@@ -1848,6 +1848,136 @@ button.btn-tiny {
   -o-transition: all 0.2s ease-in-out;
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+}
+.padding-none .ui-dataGrid {
+  border: none;
+  border-top: 1px solid #fff !important;
+  border-bottom: 1px solid #fff !important;
+  margin: 0px 1px;
+}
+.ui-dataGrid {
+  border: 1px solid #bbb;
+  position: relative;
+  overflow: hidden;
+}
+.ui-dataGrid > table {
+  border-collapse: separate;
+  table-layout: fixed;
+  overflow: hidden;
+  position: relative;
+  border-spacing: 0px 0px;
+  width: auto;
+  min-width: 100%;
+}
+.ui-dataGrid .table-header th,
+.ui-dataGrid > table > thead th,
+.ui-dataGrid .table-body td,
+.ui-dataGrid > table > tbody td,
+.ui-dataGrid .table-footer td .ui-dataGrid > table > tfoot td {
+  padding: 5px 10px;
+  border-right: 1px solid #CCCCCC;
+  border-left: 1px solid #fff;
+  color: rgba(17, 17, 17, 0.73);
+  vertical-align: middle;
+}
+.ui-dataGrid .table-body td,
+.ui-dataGrid > table > tbody td {
+  text-shadow: 1px 1px 1px #ccc;
+  font-size-adjust: 0.53;
+  font-size: 14px;
+  font-family: Wamer,Fira;
+}
+.ui-dataGrid .table-header th:last-child,
+.ui-dataGrid thead th:last-child,
+.ui-dataGrid .table-body td:last-child,
+.ui-dataGrid tbody td:last-child,
+.ui-dataGrid .table-footer td:last-child,
+.ui-dataGrid .tfoot td:last-child {
+  border-left: none !important;
+}
+.ui-dataGrid .table-header th:first-child,
+.ui-dataGrid thead th:first-child,
+.ui-dataGrid .table-body td:first-child,
+.ui-dataGrid tbody td:first-child,
+.ui-dataGrid .table-first td:first-child,
+.ui-dataGrid .tfoot td:first-child {
+  border-right: none !important;
+}
+/**
+ * table header
+ */
+.ui-dataGrid .table-header,
+.ui-dataGrid thead {
+  box-shadow: 0 -4px 10px 0px #333333;
+}
+.ui-dataGrid .table-header th,
+.ui-dataGrid > table > thead th {
+  border-bottom: 1px solid #aaa;
+  background: linear-gradient(to bottom, #ffffff 0%, #dddddd 100%);
+  cursor: pointer;
+  padding: 3px 10px !important;
+  font-family: 'WTitr';
+  font-size: 16px;
+  text-shadow: 1px 1px 1px #fff;
+}
+.ui-dataGrid .table-header th:hover,
+.ui-dataGrid thead th:hover {
+  background: linear-gradient(to bottom, #f1f1f1 0%, #dddddd 100%);
+}
+.ui-dataGrid .table-header th a,
+.ui-dataGrid thead th a {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAJFBMVEUAAAApQghqnB9toCH///9zoyxqnB9zoyxzoyxzoyyY1D6844FRtSItAAAACXRSTlMAAAAAAAED/f4yiQJ2AAAAPklEQVR4XmNwgQPcTAeGySkwJudOuOjs1VOgTM/du3fCmDNnzkQygSATU5sHwjCH6tUTYUx3hMUMU5OIMRcAHfM84bGp8C0AAAAASUVORK5CYII=') no-repeat center right;
+  padding: 0px 20px ;
+}
+.ui-dataGrid .table-header th a.asc,
+.ui-dataGrid thead th a.asc {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAJFBMVEUAAABqnB////+7Dg68Dg+8Dw9qnB+kQBm8Dw+8EBDpRkbxh4etKS3WAAAACHRSTlMAAAABAgIDA5EuZY0AAAAsSURBVHheY1CCA9xMBYb2RBhTY6cTlKncvXoqlKmxe/cOGLOjowPJhIFkAgDSNiA4ehEq8wAAAABJRU5ErkJggg==') no-repeat center right;
+}
+.ui-dataGrid .table-header th a.desc,
+.ui-dataGrid thead th a.desc {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAG1BMVEUAAAApQghqnB////9zoyxqnB+8Dw/pRkbxh4fnPRblAAAABnRSTlMAAAAAAQPutGdqAAAAKElEQVR4XmMwhoMBZZqlpaXBmB0dbVCmQUZFIoxp1mYMYzKkBBFjLgDTwiqH2P5dfAAAAABJRU5ErkJggg==') no-repeat center right;
+}
+/**
+ * table body
+ */
+.ui-dataGrid .table-body td,
+.ui-dataGrid tbody td {
+  border-bottom: 1px dotted #ccc;
+}
+.ui-dataGrid .table-body .table-row:last-child td,
+.ui-dataGrid tbody tr:last-child td {
+  border-bottom: none;
+}
+.ui-dataGrid .table-body tr:first-child td,
+.ui-dataGrid tbody tr:first-child td {
+  padding-top: 10px;
+}
+.ui-dataGrid .table-body tr:last-child td,
+.ui-dataGrid tbody tr:last-child td {
+  padding-bottom: 10px;
+}
+.ui-dataGrid .table-body tr:nth-child(odd),
+.ui-dataGrid tbody tr:nth-child(odd) {
+  background: #fafafa;
+}
+.ui-dataGrid .table-body tr:hover,
+.ui-dataGrid .table-body tr:focus,
+.ui-dataGrid tbody tr:hover,
+.ui-dataGrid tbody tr:focus {
+  background-color: rgba(234, 235, 247, 0.68);
+  color: #000;
+}
+/**
+ * table footer
+ */
+.ui-dataGrid .table-footer {
+  box-shadow: 0 5px 10px 0 #333333;
+  background: #F0F0F0;
+  background: linear-gradient(to bottom, #ffffff 0%, #dddddd 100%);
+}
+.ui-dataGrid .table-footer td {
+  border-top: 1px solid #aaa;
+  padding: 3px 10px;
 }
 #login-box {
   width: 500px;

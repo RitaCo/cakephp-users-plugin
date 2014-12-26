@@ -19,7 +19,7 @@ $this->layout = 'login';
         </div>
 
 		<div class="body-footer">
-			<?= $this->Form->submit('ایجاد'); ?>
+			<?= $this->Form->submit('ورود'); ?>
 		</div>
 		<?= $this->Form->end() ?>
         </div>

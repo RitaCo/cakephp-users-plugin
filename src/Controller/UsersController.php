@@ -17,9 +17,7 @@ class UsersController extends AppController {
 
     public function login()
     {
-        	$this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');
-				$this->Flash->info(' ایمیل فعال سازی به ایمیل شما ارسال گردید، لطفا ایمیل خود را چک نمایید.');
-        $this->Users->find('list');    
+        \Cake\Log\Log::debug($this);
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -44,11 +42,14 @@ class UsersController extends AppController {
 
     public function register() {
         $user = $this->Users->newEntity($this->request->data);
+        $this->dispatchEvent('Controller.beforeUserRegister');
         if ($this->request->is('post')) {
             $user->role_id = 3;
 			if ($this->Users->save($user)) {
+			    
 				$this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');
 				$this->Flash->info(' ایمیل فعال سازی به ایمیل شما ارسال گردید، لطفا ایمیل خود را چک نمایید.');
+                $this->dispatchEvent('RitaUsers.afterRegister',[$user]); 
 				return $this->redirect(['action' => 'login']);
 			} else {
 				$this->Flash->error('عملیات شکست خورد. لطفا دلایل بروز مشکل را بررسی و مجدد سعی نمایید.');

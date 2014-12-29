@@ -738,11 +738,11 @@ a {
 }
 .com-input .error-message {
   border: 2px solid #e67e22;
-  background-color: rgba(255, 243, 224, 0.85);
-  font-family: WRoya;
-  font-weight: normal;
-  font-size: 16px;
-  color: #22277E;
+  background-color: rgba(255, 243, 224, 0.95);
+  font-family: wiraniansans;
+  font-weight: 300;
+  font-size: 17px;
+  color: #2D339C;
   left: 20px;
   text-shadow: 0 0 3px #c5c5c5;
   z-index: 5;
@@ -790,12 +790,12 @@ a {
 }
 .com-input > .input-container > label {
   color: #222;
-  font-family: WMitra,Fira Sans;
-  font-size: 16px;
+  font-family: Wirans,Fira Sans;
+  font-size: 14px;
   -webkit-align-self: center;
       -ms-flex-item-align: center;
           align-self: center;
-  font-weight: bold;
+  font-weight: normal;
   text-shadow: 1px 1px 1px #c9c9c9;
   min-width: 130px;
   display: block;
@@ -809,7 +809,10 @@ a {
   display: block;
   border: 1px solid #bbb;
   border-radius: 3px;
-  font-family: WAmer, sans-serif;
+  font-family: "WAmer", "Fira Sans";
+  font-size: 16px;
+  font-size-adjust: 0.5;
+  font-weight: 400;
   color: #555;
   box-shadow: 0px 0px 5px 0px #DCDCDC inset;
   background: #fdfdfd;
@@ -982,8 +985,8 @@ div.submit {
   -webkit-align-self: stretch;
       -ms-flex-item-align: stretch;
           align-self: stretch;
-  font-size: 12px;
-  font-family: "WAmer", Fira Sans !important;
+  font-size: 16px;
+  font-family: "WAmer", "Fira Sans" !important;
   font-size-adjust: 0.5;
   color: #444;
   text-shadow: 0 1px 0px white;
@@ -1776,9 +1779,9 @@ button.btn-tiny {
           order: 2;
   font-family: WMofid;
   font-style: normal;
-  font-size: 25px;
-  color: #555;
-  text-shadow: 2px 2px 1px #C0C0C0;
+  font-size: 22px;
+  color: #333;
+  text-shadow: 1px 1px 1px #999;
 }
 .panel-header .header-helpers,
 .ui-panel-framed > .panel-header .header-helpers {
@@ -2166,4 +2169,25 @@ button.btn-tiny {
 #login-box {
   width: 500px;
   margin: 0 auto;
+}
+#register-message {
+  margin: 20px auto;
+  background-color: #E36159;
+  width: 350px;
+}
+#register-message .panel-body {
+  background-color: #E36159;
+  color: #fff;
+}
+#register-message .panel-body h4 {
+  font-family: wiraniansans;
+  font-weight: 400 !important;
+  font-size: 20px;
+}
+#register-message .panel-body p {
+  font-family: wtitr;
+  font-size: 30px;
+  color: #000;
+  margin: 10px auto 0 ;
+  text-shadow: 0px 0px 2px #fff;
 }

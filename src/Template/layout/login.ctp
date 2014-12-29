@@ -29,9 +29,9 @@
     <div class="grid-row isfluid" >
         <div style=" vertical-align: middle; display: table-cell;">
             <?= $this->Flash->render('auth') ?>
-            <br />
+            
             <?= $this->Flash->render() ?>
-                  <br />
+               
     		<?= $this->fetch('content') ?>
     
         </div>

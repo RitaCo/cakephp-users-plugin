@@ -18,7 +18,6 @@
 				
 		<?= $this->Html->css('front.css') ?>
 		<?= $this->Html->css('RitaUsers.users.css') ?>
-		<?= $this->Html->css('cake.css') ?>
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>
@@ -33,7 +32,7 @@
             <?= $this->Flash->render() ?>
                
     		<?= $this->fetch('content') ?>
-    
+            <br />
         </div>
     </div>
     <div class="grid-row">

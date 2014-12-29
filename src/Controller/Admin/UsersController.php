@@ -46,7 +46,7 @@ class UsersController extends AppController {
 				$this->Flash->success('The user has been saved.');
 				return $this->redirect(['action' => 'index']);
 			} else {
-				$this->Flash->error('The user could not be saved. Please, try again.');
+				$this->Flash->error('شکست در عملیات!!! لطفا مجدد سعی نمایید.');
 			}
 		}
         $roles = $this->Users->Roles->find('list');
@@ -67,10 +67,10 @@ class UsersController extends AppController {
 		if ($this->request->is(['patch', 'post', 'put'])) {
 			$user = $this->Users->patchEntity($user, $this->request->data);
 			if ($this->Users->save($user)) {
-				$this->Flash->success('The user has been saved.');
+				$this->Flash->success('عملیات ویرایش با موفقیت انجام شد.');
 				return $this->redirect(['action' => 'index']);
 			} else {
-				$this->Flash->error('The user could not be saved. Please, try again.');
+				$this->Flash->error('شکست در عملیات!!! لطفا مجدد سعی نمایید.');
 			}
 		}
 		$this->set(compact('user'));
@@ -87,9 +87,9 @@ class UsersController extends AppController {
 		$user = $this->Users->get($id);
 		$this->request->allowMethod(['post', 'delete']);
 		if ($this->Users->delete($user)) {
-			$this->Flash->success('The user has been deleted.');
+			$this->Flash->success('عملیات حذف با موفقیت انجام شد.');
 		} else {
-			$this->Flash->error('The user could not be deleted. Please, try again.');
+				$this->Flash->error('شکست در عملیات!!! لطفا مجدد سعی نمایید.');
 		}
 		return $this->redirect(['action' => 'index']);
 	}

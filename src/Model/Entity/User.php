@@ -16,38 +16,49 @@ class User extends Entity {
  */
  
  
-protected $_accessible = [
+    protected $_accessible = [
 		'email' => true,
 		'password' => true,
         'user_password' =>true,
         'confirm_password' => true,
 		'last_name' => true,
 		'first_name' => true,
-		'email_verified' => true,
-		'email_token' => true,
-		'email_token_expires' => true,
+		'confirm_email' => true,
+		'confirm_sms' => true,
+		'meta' => true,
 		'role_id' => true,
-		'active' => true,
+		'status' => true,
 		'last_action' => true,
 		'last_login' => true,
-		'is_admin' => true,
-		'locked' => true,
 		'hidden' => true,
 		'role' => true,
-		'req_notices' => true,
+		'notices_count' => true,
 	];
 
-protected $_hidden = [
-    'password',
-    'user_password',
-    'confirm_password'
-];
+//    protected $_hidden = [
+//        'password',
+//        'user_password',
+//        'confirm_password'
+//    ];
+//
 
-
+    /**
+     * User::_setEmail()
+     * 
+     * @param mixed $email
+     * @return
+     */
     protected function _setEmail($email) {
         return strtolower($email);
     }
+
     
+    /**
+     * User::_setPassword()
+     * 
+     * @param mixed $password
+     * @return
+     */
     protected function _setPassword($password) {
         if(empty($password))
         {

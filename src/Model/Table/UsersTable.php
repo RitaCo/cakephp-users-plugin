@@ -7,6 +7,14 @@ use Cake\Validation\Validator;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\Event\Event;
 use Cake\ORM\Entity;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventManager;
+use Cake\Event\EventManagerTrait;
+use Cake\Utility\String;
+use Cake\Database\Type;
+use Cake\Database\Schema\Table as Schema;
+Type::map('json', 'RitaTools\Database\Type\JsonType');
+
 /**
  * Users Model
  */
@@ -30,6 +38,18 @@ class UsersTable extends Table {
 		]);
         parent::initialize($config);
 	}
+    
+    /**
+     * UsersTable::_initializeSchema()
+     * 
+     * @param mixed $schema
+     * @return
+     */
+    protected function _initializeSchema(Schema $schema) {
+        $schema->columnType('meta', 'json');
+        return $schema;
+    }
+        
 
     /**
      * UsersTable::beforeSave()
@@ -90,5 +110,167 @@ class UsersTable extends Table {
 
 		return $validator;
 	}
+
+
+
+
+
+
+	/**
+	 * UsersTable::register()
+	 * 
+	 * @param mixed $entity
+	 * @param mixed $options
+	 * @return
+	 */
+	public function register(EntityInterface $entity, $options = []) {
+        $configs = $options+ $this->getConfig('Register') ;
+        $entity->hiddenProperties([]);
+
+        $event = $this->dispatchEvent('RitaUsers.beforeAddUser', [$entity, $options]);
+		if ($event->result instanceof Response) {
+			return $event->result;
+		}
+		if ($event->isStopped()) {
+			return false;
+		}
+        $entity->role_id = $configs['roleID'];
+        
+        if (!$this->validate($entity)){
+            return false;   
+        }
+                
+
+        $entity->uuid = String::uuid();
+        $entity->status = true;
+        $entity->confirm_email = ($configs['confirmEmail']) ? 0 : null;
+        $entity->confirm_sms = ($configs['confirmEmail']) ? 0 : null;
+        $entity->meta = [];
+        
+        $this->__confirmEmail($entity,$configs);
+
+
+        $res = $this->save($entity);    
+
+        
+        
+
+        $this->dispatchEvent('RitaUsers.afterAddUser', [$entity]);
+        return $res;
+	}
+
+
+
+    /**
+     * UsersTable::__confirmEmail()
+     * 
+     * @param mixed $config
+     * @return
+     */
+    private function __confirmEmail(EntityInterface $entity, $configs = []) {
+        
+        if(!$configs['confirmEmail']){
+            //  disable confirmEmail
+            $entity->confirm_email = null;
+            return;  
+        } 
+        // enable confirmEmail
+        $entity->confirm_email = 0;
+        
+        if(!is_array($entity->meta )){
+            $entity->meta= [];
+        }
+        
+        $entity->meta = array_merge($entity->meta, 
+        [
+            'email' => [
+                'token' => $this->__generateToken(),
+                'expires' => time() + (7 * 24 * 60 * 60),
+            ]
+        ]);
+    
+        
+        
+    }
+    
+
+    /**
+     * UsersTable::__confirmSms()
+     * 
+     * @param mixed $entity
+     * @param mixed $configs
+     * @return void
+     */
+    private function __confirmSms(EntityInterface $entity, $configs = []) {
+        
+        if(!$configs['confirmSms']){
+            //  disable confirmEmail
+            $entity->confirm_sms = null;
+            return ;
+        }
+
+        if(!is_array($entity->meta )){
+            $entity->meta= [];
+        }        
+    
+        // enable confirmEmail
+        $entity->confirm_sms = 0;
+         $entity->meta = array_merge($entity->meta,[
+            'sms' => [
+                'token' => $this->__generateToken(4,false),
+                'expires' => time() + (7 * 24 * 60 * 60),
+            ]
+
+        ]);
+        
+    }
+        
+    
+    
+	/**
+	 * UsersTable::__generateToken()
+	 * 
+	 * @param integer $length
+	 * @param bool $strings
+	 * @param bool $numbers
+	 * @return
+	 */
+	private function __generateToken($length = 10, $strings = true, $numbers = true) {
+	    $possible = '';
+        if($numbers){
+            $possible = $possible. '0123456789';
+        }
+        if($strings) {
+            $possible = $possible . 'abcdefghijklmnopqrstuvwxyz';    
+        }
+		
+		$token = "";
+		$i = 0;
+
+		while ($i < $length) {
+			$char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+			if (!stristr($token, $char)) {
+				$token .= $char;
+				$i++;
+			}
+		}
+        
+		return $token;
+	}
+    
+    
+    
+    
+    /**
+     * UsersTable::getConfig()
+     * 
+     * @param mixed $key
+     * @return
+     */
+    public function getConfig($key) {
+        $key = 'RitaUsers.'.$key;
+        $config = \Cake\Core\Configure::read($key);
+        return $config;
+    }
 
 }

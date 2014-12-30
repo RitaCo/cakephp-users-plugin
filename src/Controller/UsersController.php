@@ -1,7 +1,7 @@
 <?php
 namespace RitaUsers\Controller;
 
-
+use \Cake\Core\Configure;
 use Cake\Event\Event;
 use RitaUsers\Controller\AppController;
 
@@ -17,7 +17,9 @@ class UsersController extends AppController {
 
     public function login()
     {
-        \Cake\Log\Log::debug($this);
+        if($this->Auth->user()){
+            return $this->redirect($this->Auth->redirectUrl());
+        }
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -41,14 +43,18 @@ class UsersController extends AppController {
 
 
     public function register() {
+                if($this->Auth->user()){
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+
         $user = $this->Users->newEntity($this->request->data);
         $this->dispatchEvent('Controller.beforeUserRegister');
         if ($this->request->is('post')) {
-            $user->role_id = 3;
-			if ($this->Users->save($user)) {
+            
+			if ($this->Users->register($user)) {
 			    
 				$this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');
-				$this->Flash->info(' ایمیل فعال سازی به ایمیل شما ارسال گردید، لطفا ایمیل خود را چک نمایید.');
+				
                 $this->dispatchEvent('RitaUsers.afterRegister',[$user]); 
 				return $this->redirect(['action' => 'login']);
 			} else {

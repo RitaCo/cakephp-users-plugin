@@ -11,13 +11,12 @@
 
 
 
-	<?= $this->Html->css('normalize.css') ?>
 	
 		<?= $this->Rita->css() ?>
 		
 				
 		<?= $this->Html->css('front.css') ?>
-		<?= $this->Html->css('RitaUsers.users.css') ?>
+		
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>
@@ -27,11 +26,14 @@
  
     <div class="grid-row isfluid" >
         <div style=" vertical-align: middle; display: table-cell;">
+        <br />
+        <br />
             <?= $this->Flash->render('auth') ?>
             
             <?= $this->Flash->render() ?>
-               
+             <br />  
     		<?= $this->fetch('content') ?>
+            <br />
             <br />
         </div>
     </div>

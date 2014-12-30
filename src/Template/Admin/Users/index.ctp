@@ -32,9 +32,11 @@ use \Cake\Routing\Router;
                         echo $this->Html->tableHeaders([
                         'نام و نام خانوادگی',
                         'ایمیل' ,
-                        'نقش',
-                        'وضعیت' ,
-                        'عملیات'
+                        ['نقش' => ['width' => '100px']],
+                        ['وضعیت' => ['width' => '100px']],
+                        ['آگهی ها' => ['width' => '140px']],
+                        ['عملیات' => ['width' => '100px']],
+                        
                         ]);
                         
                         ?>
@@ -42,7 +44,14 @@ use \Cake\Routing\Router;
                     <tbody class="">
                         <?php
                         foreach($users as $user)
-    echo $this->Html->tableCells([$user->first_name.' '.$user->last_name,$user->email,$user->role->name,$user->active,'']);
+    echo $this->Html->tableCells([
+            p($user->first_name.' '.$user->last_name),
+            $user->email,
+            $user->role->name,
+            ($user->status)? "فعال" : "غیر فعال",
+            p($user->notices_count).' عدد ',
+            $this->Html->link('پروفایل',['action' => 'view',$user->id],['class' => 'btn btn-main'])
+            ]);
 
 ?>
                     </tbody>

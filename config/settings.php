@@ -4,6 +4,6 @@ return [
 	'css' => [
         'base' => [],
 		'admin' => [],
-        'front' => []
+        'front' => ['RitaUsers.users.css']
 	]
  ];

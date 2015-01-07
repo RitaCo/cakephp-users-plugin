@@ -1,3 +1,148 @@
+.ui-panel-box,
+.ui-panel-framed,
+.ui-panel-border {
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 2px #c3c3c3;
+  border-radius: 3px;
+  color: #8b91a0;
+  position: relative;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column ;
+      -ms-flex-direction: column ;
+          flex-direction: column ;
+  padding: 2px;
+}
+.ui-panel-framed > .panel-header,
+.ui-panel-border > .panel-header,
+.ui-panel-border > .ui-panel-framed > .panel-header {
+  -moz-user-select: none;
+  padding: 0px 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 0 #FFFFFF inset;
+  -webkit-flex: 0 0 40px;
+      -ms-flex: 0 0 40px;
+          flex: 0 0 40px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row ;
+      -ms-flex-direction: row ;
+          flex-direction: row ;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+.ui-panel-framed > .panel-header .header-icon,
+.ui-panel-framed > .panel-header .header-caption,
+.ui-panel-framed > .panel-header .header-helpers {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  -webkit-flex: 0;
+      -ms-flex: 0;
+          flex: 0;
+}
+.ui-panel-framed > .panel-header .header-icon {
+  padding: 0px 10px;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
+}
+.ui-panel-framed > .panel-header .header-icon i {
+  font-size: 18px;
+  color: #666;
+}
+.ui-panel-framed > .panel-header .header-icon:empty {
+  padding: 10px;
+}
+.ui-panel-framed > .panel-header .header-caption {
+  -webkit-flex: 1 0 auto;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  -webkit-order: 2;
+      -ms-flex-order: 2;
+          order: 2;
+  font-family: WMofid;
+  font-style: normal;
+  font-size: 22px;
+  color: #333;
+  text-shadow: 1px 1px 1px #999;
+}
+.ui-panel-framed > .panel-header .header-helpers {
+  -webkit-order: 3;
+      -ms-flex-order: 3;
+          order: 3;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row ;
+      -ms-flex-direction: row ;
+          flex-direction: row ;
+}
+.ui-panel-framed > .panel-header .header-helpers > * {
+  border-top: 1px solid #777272;
+  border-left: 1px solid #777272;
+  border-right: 1px solid #777272;
+  border-bottom: 1px solid #777272;
+  padding: 2px 4px;
+  overflow: hidden;
+  box-shadow: 0 0 1px #707070 inset;
+  background-color: white;
+  margin: 0px 2px;
+  text-align: center;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  border-radius: 3px 3px 3px 3px !important;
+  cursor: pointer;
+}
+.ui-panel-framed > .panel-header .header-helpers > * > i {
+  text-align: center;
+  position: relative;
+}
+.ui-panel-framed > .panel-header.bg-3d {
+  background-color: #dadada;
+  background-image: linear-gradient(to bottom, #f2f2f2, #dadada);
+}
+.ui-panel-framed > .panel-header.bg-flat {
+  background-color: #f2f2f2;
+}
+.ui-panel-framed > .panel-body,
+.ui-panel-border > .panel-body {
+  padding: 10px;
+  background-color: #ffffff;
+  position: relative;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column ;
+      -ms-flex-direction: column ;
+          flex-direction: column ;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  white-space: initial;
+}
+.ui-panel-framed > .ui-panel-framed > .panel-header.bg-flat {
+  background-color: #dadada;
+  background-image: linear-gradient(to bottom, #f2f2f2, #dadada);
+}
+.ui-panel-framed .ui-panel-framed > .panel-header + .panel-body {
+  margin-top: 0;
+}
+.ui-panel-border > .ui-panel-framed > .panel-header {
+  border-bottom: 1px solid #b9b9b9;
+}
 #login-box {
   width: 500px;
   margin: 0 auto;

@@ -12,7 +12,9 @@
 
 
 	
-		<?= $this->Rita->css() ?>
+		<?= $this->Rita->loadingCSS() ?>
+		<?= $this->Rita->loadingJS() ?>
+		
 		
 				
 		<?= $this->Html->css('front.css') ?>

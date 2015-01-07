@@ -6,4 +6,4 @@ return [
 		'admin' => [],
         'front' => ['RitaUsers.users.css']
 	]
- ];
+];

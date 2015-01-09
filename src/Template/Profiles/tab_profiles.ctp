@@ -3,7 +3,7 @@
         <div class="header-caption">مشخصات شما</div>
     </header>    
     <section class="panel-body padding-none">
-        <div id="ProfileTab" class="ui-tab typ-right border-none">
+        <div id="ProfileTab" class="ui-tab typ-top border-none">
             <ul class="tab-nav">
                 <li data-tab="#tab1">
                     <a href="<?= $this->Url->build(['action' => 'personal', 'section' => 'clients'])?>">شخصی</a>
@@ -13,7 +13,7 @@
                 <li data-tab="#tab4"><a>آواتار</a></li>
             </ul>
         <div class="tab-container">
-            <div class="tab-body active " id="<?= $this->request->param('action'); ?>">
+            <div class="tab-body active padding-none" id="<?= $this->request->param('action'); ?>">
                 <?= $this->fetch('content'); ?>
             </div>			
         </div>

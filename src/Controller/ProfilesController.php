@@ -71,7 +71,8 @@ class ProfilesController extends AppController
             ]);
             
             if($this->Users->save($user)) {
-                $this->Flash->succes('تغییرات با موفقیت ذخیره شدند.');
+                $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
+                $this->redirect($this->request->params);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                 $this->Flash->info('. لطفا مجدد سعی نمایید');                

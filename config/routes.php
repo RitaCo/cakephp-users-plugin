@@ -39,7 +39,6 @@ Router::prefix('admin', function($routes)
             '/',
             ['controller' => 'Dashboard','action' => 'index']
         );
-        
         $routes->fallbacks('InflectedRoute');
     });
 });
@@ -52,11 +51,17 @@ Router::scope('/client', ['section' => 'clients'], function($routes)
 {
     $routes->connect(
         '/profile',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index']
+        ['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index'],
+        ['routeClass' => 'InflectedRoute']
     );
-    
+
     $routes->connect(
         '/profile/:action/*',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles']
+        ['plugin' => 'RitaUsers', 'controller' => 'Profiles'],
+        ['routeClass' => 'InflectedRoute']
     );
+
+
+
+
 });

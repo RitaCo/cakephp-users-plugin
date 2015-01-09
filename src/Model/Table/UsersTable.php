@@ -72,15 +72,27 @@ class UsersTable extends Table {
  * @param \Cake\Validation\Validator $validator instance
  * @return \Cake\Validation\Validator
  */
-	public function validationDefault(Validator $validator) {
+	public function validationDefault(Validator $validator)
+    {
 		$validator
-			->add('id', 'valid', ['rule' => 'numeric'])
-			->allowEmpty('id', 'create')
-			->requirePresence('user_password', 'create')
+			->add(
+                'id', 
+                'valid', 
+                ['rule' => 'numeric']
+            )
+			->allowEmpty(
+                'id', 
+                'create'
+            )
+			->requirePresence(
+                'user_password', 
+                'create'
+            )
 			->notEmpty('user_password')
             ->add('user_password', [
                 'custom' => [
-                    'rule' => function ($value, $context) {
+                    'rule' => function ($value, $context)
+                    {
                             if (preg_match('/^[_0-9a-zA-Z]{6,18}$/i', $value)) {
                                 return true;
                             }

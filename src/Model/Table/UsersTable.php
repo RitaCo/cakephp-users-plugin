@@ -38,7 +38,7 @@ class UsersTable extends Table {
 		]);
         parent::initialize($config);
 	}
-    
+           
     /**
      * UsersTable::_initializeSchema()
      * 
@@ -61,9 +61,9 @@ class UsersTable extends Table {
      */
     public function beforeSave(Event $event, Entity $entity, $options = []) {
         if ($entity->has('user_password')) {
-            $entity->set('password', $entity->user_password);
+            //$entity->set('password', $entity->user_password);
         }
-        
+         
     }
 
 /**
@@ -88,7 +88,7 @@ class UsersTable extends Table {
                 'user_password', 
                 'create'
             )
-			->notEmpty('user_password')
+			->notEmpty('user_password','تکمیل این فیلد اجباری می باشد.')
             ->add('user_password', [
                 'custom' => [
                     'rule' => function ($value, $context)
@@ -125,8 +125,89 @@ class UsersTable extends Table {
 
 
 
+    public function validationChangePassword(Validator $validator) {
+        
+        $validator->requirePresence('id', true)
+            ->notEmpty('id', 'تکمیل این فیلد اجباری می باشد.')
+            ->requirePresence('current_password', true)
+            ->add('current_password', [
+                'custom' => [
+                    'rule' => function ($value, $context) {
+                        debug($context);
+                        return (new DefaultPasswordHasher)->check($value, $context['data']['password']);
+                    },
+                    'message' => 'رمزعبور فعلی صحیح نمی‌باشد',
+                    'last' => true
+                ]
+            ])
+			->requirePresence(
+                'user_password', 
+                true
+            )
+			->notEmpty('user_password','تکمیل این فیلد اجباری می باشد.')
+            ->add('user_password', [
+                'custom' => [
+                    'rule' => function ($value, $context)
+                    {
+                        if (preg_match('/^[_0-9a-zA-Z]{6,18}$/i', $value)) {
+                            return true;
+                        }
+                        return false;
+                    },
+                    'message' => 'پسورد باید بیشتر از ۶ حرف و از حروف و اعداد لاتین تشکیل شده باشد.',
+                    'last' => true
+                ]
+            ])
+            ->requirePresence('confirm_password',true)
+            ->notEmpty('confirm_password','تکمیل این فیلد اجباری می باشد.')
+            ->add('confirm_password',
+                'custom',[
+                'rule' => function($value,$context) {
+                    
+                    
+                    return ($value === $context['data']['user_password']);
+                },
+                'message' => 'تکرار با رمز عبور مطابقت ندارد'
+            ]);                
+        return $validator;        
+    }
+ 
+ 
+ 
+	/**
+	 * UsersTable::chengePassword()
+	 * 
+	 * @param mixed $entity
+	 * @param mixed $options
+	 * @return void
+	 */
+	public function changePassword(EntityInterface $entity, $options = []){
+        
+	       $entity->accessible('current_password',true);
+         //  $this->validator()->requirePresence('current_password','update')
+//           ->add('current_password','custom',[
+//                'rule' => function($value,$context) {
+//                             //$cuPass$this->__getPassword($entity->id);
+//                            //$cuPass = (new DefaultPasswordHasher)->check($entity->current_password,$caPass);
+//                    
+//                    return false;
+//                },
+//                'message' => 'تکرار با رمز عبور مطابقت ندارد'
+//            ]);
+//            
+
+            $this->errors('current_password', ['Password is required.']);
+           return $entity;
+            $this->validate($entity); 
+          
+    } 
 
 
+
+
+    private function __getPassword($id){
+        return current($this->get(1, ['fields' => ['password']])->toArray());
+    }
 
 	/**
 	 * UsersTable::register()
@@ -135,7 +216,8 @@ class UsersTable extends Table {
 	 * @param mixed $options
 	 * @return
 	 */
-	public function register(EntityInterface $entity, $options = []) {
+	public function register(EntityInterface $entity, $options = []) 
+    {
         $configs = $options+ $this->getConfig('Register') ;
         $entity->hiddenProperties([]);
 

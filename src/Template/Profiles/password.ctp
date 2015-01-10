@@ -3,4 +3,19 @@
 $this->extend('TabProfiles');
 
 ?>
-<p>pasword</p><p>pasword</p><p>pasword</p><p>pasword</p><p>pasword</p><p>pasword</p><p>pasword</p><p>pasword</p>
+
+<div class="tab-body active padding-none" id="<?= $this->request->param('action'); ?>">
+	<?= $this->Form->create($user); ?>
+		<div class="body-container padding-none">
+	           	<?= $this->Form->input('current_password',['type' => 'password','label' => 'رمزعبور فعلی', 'dir' => 'ltr' ]); ?>
+   				<?= $this->Form->input('user_password',['type' => 'password','label' => 'رمزعبور جدید', 'dir' => 'ltr' ]); ?>
+				<?= $this->Form->input('confirm_password',['type' => 'password','label' => 'تکرار رمزعبور جدید', 'dir' => 'ltr' ]); ?>
+
+       	
+		
+		</div>    
+		<div class="body-footer">
+			<?= $this->Form->submit('ایجاد'); ?>
+		</div>
+	<?= $this->Form->end() ?>
+        		

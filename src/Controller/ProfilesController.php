@@ -37,7 +37,7 @@ class ProfilesController extends AppController
     {
         
         parent::initialize();
-        $this->loadModel('RitaUser.Users');    
+        $this->loadModel('RitaUsers.Users');    
     }
     
     
@@ -72,7 +72,7 @@ class ProfilesController extends AppController
             
             if($this->Users->save($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                $this->redirect($this->request->params);
+                return $this->redirect($this->request->params);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                 $this->Flash->info('. لطفا مجدد سعی نمایید');                
@@ -83,8 +83,44 @@ class ProfilesController extends AppController
     }
     
     
+    /**
+     * ProfilesController::password()
+     * 
+     * @return void
+     */
     public function password()
     {
+        $user = null;
         
+        if ($this->request->is([ 'post', 'put'])) {
+            $user = $this->Users->get($this->userID);
+           
+            $user = $this->Users->patchEntity(
+                $user,
+                $this->request->data,
+                ['validate' => 'changePassword',
+                'fieldList' => ['password','current_password','user_password','confirm_password']
+                ]
+                
+            );  
+ 
+             if ($this->Users->save($user)) {
+               $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
+               return $this->redirect($this->request->params); 
+            }
+                $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
+                             
+                        
+        }
+        
+        $this->set('user',$user);
     }
+
+
+    public function confirmList(){
+        
+        $lists = [];
+        $this->set(compact('lists'));        
+        
+    }    
 }

@@ -15,7 +15,7 @@ class Initial extends AbstractMigration
     public function change()
     {
     }
-    */
+     */
     
     /**
      * Migrate Up.

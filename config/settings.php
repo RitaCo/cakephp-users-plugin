@@ -1,9 +1,9 @@
 <?php
 
 return [
-	'css' => [
+    'css' => [
         'base' => [],
-		'admin' => [],
+        'admin' => [],
         'front' => ['RitaUsers.users.css']
-	]
+    ]
 ];

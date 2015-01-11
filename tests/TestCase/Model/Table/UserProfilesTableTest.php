@@ -30,7 +30,9 @@ class UserProfilesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('UserProfiles') ? [] : ['className' => 'RitaUsers\Model\Table\UserProfilesTable'];        $this->UserProfiles = TableRegistry::get('UserProfiles', $config);    }
+        $config = TableRegistry::exists('UserProfiles') ? [] : ['className' => 'RitaUsers\Model\Table\UserProfilesTable'];
+        $this->UserProfiles = TableRegistry::get('UserProfiles', $config);
+    }
 
     /**
      * tearDown method

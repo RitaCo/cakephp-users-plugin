@@ -1,8 +1,9 @@
 <?php
 
 use \Cake\Routing\Router;
-   $this->assign('title','مدیریت / ایجاد کاربر');
-   $this->assign('note','شما می‌توانید یک کاربر جدید ایجاد نمایید.');
+
+   $this->assign('title', 'مدیریت / ایجاد کاربر');
+   $this->assign('note', 'شما می‌توانید یک کاربر جدید ایجاد نمایید.');
 ?>
 
 <div class="ui-panel-framed ">
@@ -10,7 +11,7 @@ use \Cake\Routing\Router;
 		<div class="header-caption">فهرست</div>
 	</div>
 	<div class="panel-body padding-none ">
-	<?= $this->Form->create($user); ?>
+    <?= $this->Form->create($user); ?>
 		<div class="body-header padding-none">
 			<div class="ui-toolbar">
 				<div class="toolbar-band ">
@@ -25,11 +26,11 @@ use \Cake\Routing\Router;
 		<div class="body-splitter"></div>
 		<div class="body-container padding-none">
 
-                <?= $this->Form->input('role_id',['label' => 'نقش کاربر', 'empty' => 'انتخاب کنید.' ]); ?>
-				<?= $this->Form->input('email',['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>
-				<?= $this->Form->input('password',['label' => 'رمزعبور', 'dir' => 'ltr' ]); ?>
-				<?= $this->Form->input('first_name',['label' => 'نام' ]); ?>
-				<?= $this->Form->input('last_name',['label' => 'نام خانوادگی' ]); ?>
+                <?= $this->Form->input('role_id', ['label' => 'نقش کاربر', 'empty' => 'انتخاب کنید.' ]); ?>
+				<?= $this->Form->input('email', ['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>
+				<?= $this->Form->input('password', ['label' => 'رمزعبور', 'dir' => 'ltr' ]); ?>
+				<?= $this->Form->input('first_name', ['label' => 'نام' ]); ?>
+				<?= $this->Form->input('last_name', ['label' => 'نام خانوادگی' ]); ?>
 
 
 		
@@ -37,8 +38,8 @@ use \Cake\Routing\Router;
 		
 		</div>
 		<div class="body-footer">
-			<?= $this->Form->submit('ایجاد'); ?>
+    <?= $this->Form->submit('ایجاد'); ?>
 		</div>
-		<?= $this->Form->end() ?>
+    <?= $this->Form->end() ?>
 	</div>
 </div>

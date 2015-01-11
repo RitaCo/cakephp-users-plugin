@@ -1,7 +1,7 @@
 <?php
 use \Cake\Core\Configure;
 
-Configure::write('RitaUsers',[
+Configure::write('RitaUsers', [
 
 
     'Register' => [
@@ -14,7 +14,5 @@ Configure::write('RitaUsers',[
 
 
 
-]); 
+]);
 require __DIR__ . '/events.php';
-
-

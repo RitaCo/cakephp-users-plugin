@@ -21,17 +21,17 @@ $this->layout = 'login';
                     <span class="header-caption">ورود کاربران</span>
                 </div>
                 <div class="panel-body padding-none">
-                	<?= $this->Form->create(); ?>
+                    <?= $this->Form->create(); ?>
                     <div class="body-container padding-none ">
-                        	<?= $this->Form->input('email',['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>
-            				<?= $this->Form->input('password',['label' => 'رمزعبور' ,'dir'=>'ltr']); ?>
+                            <?= $this->Form->input('email', ['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>
+            				<?= $this->Form->input('password', ['label' => 'رمزعبور' ,'dir'=>'ltr']); ?>
                     
                     </div>
             
             		<div class="body-footer">
-            			<?= $this->Form->submit('ورود'); ?>
+                <?= $this->Form->submit('ورود'); ?>
             		</div>
-            		<?= $this->Form->end() ?>
+                <?= $this->Form->end() ?>
                     </div>
             </section>
         </div> 

@@ -1,8 +1,9 @@
 <?php
 
 use \Cake\Routing\Router;
-   $this->assign('title','مدیریت / نقش‌ها');
-   $this->assign('note','فهرست نقش‌ها.');
+
+   $this->assign('title', 'مدیریت / نقش‌ها');
+   $this->assign('note', 'فهرست نقش‌ها.');
 ?>
 
 
@@ -40,8 +41,9 @@ use \Cake\Routing\Router;
                     </thead>
                     <tbody class="table-body">
                         <?php
-                        foreach($roles as $role)
-    echo $this->Html->tableCells([$role->name,$role->user_count,$role->active,'']);
+                        foreach ($roles as $role) {
+                            echo $this->Html->tableCells([$role->name,$role->user_count,$role->active,'']);
+                        }
 
 ?>
                     </tbody>

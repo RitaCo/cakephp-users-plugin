@@ -1,8 +1,9 @@
 <?php
 
 use \Cake\Routing\Router;
-   $this->assign('title','مدیریت / کاربران');
-   $this->assign('note','فهرست تمامی کاربران عضو در سیستم');
+
+   $this->assign('title', 'مدیریت / کاربران');
+   $this->assign('note', 'فهرست تمامی کاربران عضو در سیستم');
 ?>
 
 
@@ -43,15 +44,16 @@ use \Cake\Routing\Router;
                     </thead>
                     <tbody class="">
                         <?php
-                        foreach($users as $user)
-    echo $this->Html->tableCells([
-            p($user->first_name.' '.$user->last_name),
-            $user->email,
-            $user->role->name,
-            ($user->status)? "فعال" : "غیر فعال",
-            p($user->notices_count).' عدد ',
-            $this->Html->link('پروفایل',['action' => 'view',$user->id],['class' => 'btn btn-main'])
-            ]);
+                        foreach ($users as $user) {
+                            echo $this->Html->tableCells([
+                            p($user->first_name.' '.$user->last_name),
+                            $user->email,
+                            $user->role->name,
+                            ($user->status)? "فعال" : "غیر فعال",
+                            p($user->notices_count).' عدد ',
+                            $this->Html->link('پروفایل', ['action' => 'view',$user->id], ['class' => 'btn btn-main'])
+                            ]);
+                        }
 
 ?>
                     </tbody>

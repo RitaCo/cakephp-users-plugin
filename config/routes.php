@@ -1,29 +1,28 @@
 <?php
 use Cake\Routing\Router;
 
-
 /**
  * Front Routes
  */
 
 Router::scope('/', function($routes)
 {
- 	$routes->connect(
+    $routes->connect(
         '/login',
         ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'login']
     );
     
- 	$routes->connect(
-        '/logout',
-        ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'logout']
-    );
+     $routes->connect(
+         '/logout',
+         ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'logout']
+     );
     
- 	$routes->connect(
-        '/register',
-        ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'register']
-    );
+     $routes->connect(
+         '/register',
+         ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'register']
+     );
 
-	$routes->fallbacks('InflectedRoute');
+     $routes->fallbacks('InflectedRoute');
 });
 
 
@@ -33,7 +32,7 @@ Router::scope('/', function($routes)
 
 Router::prefix('admin', function($routes)
 {
-    $routes->plugin('RitaUsers', [ 'path' => '/userManger'], function($routes) 
+    $routes->plugin('RitaUsers', [ 'path' => '/userManger'], function($routes)
     {
         $routes->redirect(
             '/',

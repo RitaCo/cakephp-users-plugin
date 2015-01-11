@@ -11,7 +11,7 @@ class UsersController extends AppController
 
     /**
      * UsersController::beforeFilter()
-     * 
+     *
      * @param mixed $event
      * @return void
      */
@@ -24,12 +24,12 @@ class UsersController extends AppController
 
     /**
      * UsersController::login()
-     * 
+     *
      * @return
      */
     public function login()
     {
-        if($this->Auth->user()) {
+        if ($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
         
@@ -48,10 +48,10 @@ class UsersController extends AppController
 
     /**
      * UsersController::logout()
-     * 
+     *
      * @return
      */
-    public function logout() 
+    public function logout()
     {
         return $this->redirect($this->Auth->logout());
     }
@@ -60,17 +60,16 @@ class UsersController extends AppController
 
     /**
      * UsersController::register()
-     * 
+     *
      * @return
      */
     public function register()
     {
-        if($this->Auth->user()) {
+        if ($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
-        $user = $this->Users->newEntity();   
-        if ($this->request->is('post')) {    
-                
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
                 $user = $this->Users->patchEntity($user, $this->request->data);
         
                 $this->dispatchEvent('Controller.beforeUserRegister');
@@ -79,7 +78,7 @@ class UsersController extends AppController
     
             if ($this->Users->register($user)) {
                 $this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');
-                $this->dispatchEvent('RitaUsers.afterRegister',[$user]); 
+                $this->dispatchEvent('RitaUsers.afterRegister', [$user]);
                 return $this->redirect(['action' => 'login']);
                 
             } else {
@@ -87,7 +86,6 @@ class UsersController extends AppController
             }
         }
         
-		$this->set(compact('user'));        
+        $this->set(compact('user'));
     }
-    
-} 
+}

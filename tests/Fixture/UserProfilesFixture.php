@@ -25,7 +25,7 @@ class UserProfilesFixture extends TestFixture
         'twitterUrl' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'facebookUrl' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         '_options' => [
-'engine' => 'InnoDB', 'collation' => 'utf8_persian_ci'
+    'engine' => 'InnoDB', 'collation' => 'utf8_persian_ci'
         ],
     ];
 

@@ -13,13 +13,13 @@ class User extends Entity {
  * Fields that can be mass assigned using newEntity() or patchEntity().
  *
  * @var array
- */
- 
+ */                                                                        
+    
  
     protected $_accessible = [
 		'email' => true,
 		'password' => true,
-        'current_password' => true,
+        'old_password' => true,
         'user_password' =>true,
         'confirm_password' => true,
 		'last_name' => true,
@@ -27,19 +27,21 @@ class User extends Entity {
 		'confirm_email' => true,
 		'confirm_sms' => true,
 		'meta' => true,
-		'role_id' => true,
+		'role_id' => false,
 		'status' => true,
 		'last_action' => true,
 		'last_login' => true,
 		'hidden' => true,
 		'role' => true,
+        'profile' => true,
 		'notices_count' => true,
 	];
 
 //    protected $_hidden = [
 //        'password',
 //        'user_password',
-//        'confirm_password'
+//        'confirm_password',
+//            'old_password'
 //    ];
 //
 
@@ -61,11 +63,6 @@ class User extends Entity {
      * @return
      */
     protected function _setPassword($password) {
-        if(empty($password))
-        {
-            return $password;
-        }
-        $password = (new DefaultPasswordHasher)->hash($password);      
-        return $password;
+       return (new DefaultPasswordHasher)->hash($password);
     }
 }

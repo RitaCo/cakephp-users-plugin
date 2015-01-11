@@ -68,12 +68,14 @@ class UsersController extends AppController
         if($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
-    
-        $user = $this->Users->newEntity($this->request->data);
+        $user = $this->Users->newEntity();   
+        if ($this->request->is('post')) {    
+                
+                $user = $this->Users->patchEntity($user, $this->request->data);
         
-        $this->dispatchEvent('Controller.beforeUserRegister');
+                $this->dispatchEvent('Controller.beforeUserRegister');
         
-        if ($this->request->is('post')) {
+
     
             if ($this->Users->register($user)) {
                 $this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');

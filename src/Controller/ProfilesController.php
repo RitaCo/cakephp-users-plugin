@@ -63,11 +63,11 @@ class ProfilesController extends AppController
     public function personal()
     {
     
-        $user = $this->Users->get($this->userID);
+        $user = $this->Users->get($this->userID, ['contain' => 'Profiles']);
             
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user,$this->request->data, [
-                'fieldList' => ['first_name', 'last_name']
+                'associated' => ['Profiles']
             ]);
             
             if($this->Users->save($user)) {
@@ -94,16 +94,14 @@ class ProfilesController extends AppController
         
         if ($this->request->is([ 'post', 'put'])) {
             $user = $this->Users->get($this->userID);
-           
+             // 
+              $this->request->data('password', $user->password);
             $user = $this->Users->patchEntity(
                 $user,
                 $this->request->data,
-                ['validate' => 'changePassword',
-                'fieldList' => ['password','current_password','user_password','confirm_password']
-                ]
-                
+                ['validate' => 'password']    
             );  
- 
+                  
              if ($this->Users->save($user)) {
                $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
                return $this->redirect($this->request->params); 

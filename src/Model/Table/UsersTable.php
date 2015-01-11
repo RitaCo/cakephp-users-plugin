@@ -27,6 +27,7 @@ class UsersTable extends Table {
  * @return void
  */
 	public function initialize(array $config) {
+        parent::initialize($config);
 		$this->table('users');
 		$this->displayField('id');
 		$this->primaryKey('id');
@@ -36,7 +37,11 @@ class UsersTable extends Table {
 			'foreignKey' => 'role_id',
 			'className' => 'RitaUsers.Roles'
 		]);
-        parent::initialize($config);
+        $this->hasOne('Profiles',[
+            'alias' => 'Profiles',
+            'className' => 'RitaUsers.Profiles'
+        ]);
+        
 	}
            
     /**
@@ -51,6 +56,8 @@ class UsersTable extends Table {
     }
         
 
+
+
     /**
      * UsersTable::beforeSave()
      * 
@@ -61,7 +68,7 @@ class UsersTable extends Table {
      */
     public function beforeSave(Event $event, Entity $entity, $options = []) {
         if ($entity->has('user_password')) {
-            //$entity->set('password', $entity->user_password);
+            $entity->set('password', $entity->user_password);
         }
          
     }
@@ -75,8 +82,7 @@ class UsersTable extends Table {
 	public function validationDefault(Validator $validator)
     {
 		$validator
-			->add(
-                'id', 
+			->add('id', 
                 'valid', 
                 ['rule' => 'numeric']
             )
@@ -108,7 +114,7 @@ class UsersTable extends Table {
             ->add('confirm_password','custom',[
                 'rule' => function($value,$context) {
                     
-                    
+                      
                     return ($value === $context['data']['user_password']);
                 },
                 'message' => 'تکرار با رمز عبور مطابقت ندارد'
@@ -125,15 +131,22 @@ class UsersTable extends Table {
 
 
 
-    public function validationChangePassword(Validator $validator) {
+    /**
+     * UsersTable::validationPassword()
+     * 
+     * @param mixed $validator
+     * @return
+     */
+    public function validationPassword(Validator $validator) {
         
         $validator->requirePresence('id', true)
             ->notEmpty('id', 'تکمیل این فیلد اجباری می باشد.')
-            ->requirePresence('current_password', true)
-            ->add('current_password', [
+            ->requirePresence('old_password', true)
+           	->notEmpty('old_password','تکمیل این فیلد اجباری می باشد.')
+            ->add('old_password', [
                 'custom' => [
                     'rule' => function ($value, $context) {
-                        debug($context);
+                        
                         return (new DefaultPasswordHasher)->check($value, $context['data']['password']);
                     },
                     'message' => 'رمزعبور فعلی صحیح نمی‌باشد',
@@ -230,7 +243,7 @@ class UsersTable extends Table {
 		}
         $entity->role_id = $configs['roleID'];
         
-        if (!$this->validate($entity)){
+        if (!empty($entity->errors())){
             return false;   
         }
                 

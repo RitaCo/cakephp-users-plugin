@@ -255,7 +255,8 @@ class UsersTable extends Table
         }
         $entity->role_id = $configs['roleID'];
         
-        if (!empty($entity->errors())) {
+        $err = $entity->errors();
+        if (!empty($err)) {
             return false;
         }
                 

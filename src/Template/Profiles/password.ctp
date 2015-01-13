@@ -17,4 +17,4 @@ $this->extend('TabProfiles');
 		<div class="body-footer">
     <?= $this->Form->submit('ایجاد'); ?>
 		</div>
-    <?= $this->Form->end()
+    <?= $this->Form->end() ?>

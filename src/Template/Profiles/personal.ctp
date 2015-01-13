@@ -23,4 +23,4 @@ $this->extend('TabProfiles');
 		<div class="body-footer">
     <?= $this->Form->submit('ذخیره'); ?>
 		</div>
-    <?= $this->Form->end()
+    <?= $this->Form->end();?>

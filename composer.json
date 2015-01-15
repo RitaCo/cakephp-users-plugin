@@ -15,7 +15,7 @@
 	],
 	"require":{
 		"php": ">=5.4",
-		"cakephp/plugin-installer": "*",
+        "cakephp/plugin-installer": "0.0.1",
 		"cakephp/cakephp": "3.0.*-dev"
 	},
 	"autoload": {

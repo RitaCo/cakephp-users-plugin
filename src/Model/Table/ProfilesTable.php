@@ -21,6 +21,7 @@ class ProfilesTable extends Table
     public function initialize(array $config)
     {
         $this->table('user_profiles');
+        $this->primaryKey('user_id');
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'className' => 'RitaUsers.Users'

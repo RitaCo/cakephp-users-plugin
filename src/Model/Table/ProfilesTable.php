@@ -22,6 +22,8 @@ class ProfilesTable extends Table
     {
         $this->table('user_profiles');
         $this->primaryKey('user_id');
+        $this->addBehavior('RitaTools.Persian');
+        
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'className' => 'RitaUsers.Users'
@@ -41,7 +43,7 @@ class ProfilesTable extends Table
             ->allowEmpty('user_id')
             ->allowEmpty('sex')
             ->allowEmpty('last_name')
-            ->add('brith', 'valid', ['rule' => 'datetime'])
+            ->add('brith', 'valid', ['rule' => 'date'])
             ->allowEmpty('brith')
             ->allowEmpty('avatarEmail')
             ->requirePresence('websiteUrl', 'create')

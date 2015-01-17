@@ -68,7 +68,7 @@ class ProfilesController extends AppController
             
             if ($this->Users->save($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                return $this->redirect($this->request->params);
+                return $this->redirect(['action' => 'personal', 'section' => true]);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                 $this->Flash->info('. لطفا مجدد سعی نمایید');
@@ -100,7 +100,7 @@ class ProfilesController extends AppController
                   
             if ($this->Users->save($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                return $this->redirect($this->request->params);
+                return $this->redirect(['action' => 'password', 'section' => true]);
             }
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                              

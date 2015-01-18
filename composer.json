@@ -1,39 +1,39 @@
 {
-	"name": "ritaco/users",
-	"type": "cakephp-plugin",
-	"description": "This plugin is a set of tools for user handling like registration, login, email verification, password reset and much more.",
-	"keywords": ["cakephp", "plugin", "users", "user-management", "login", "registration", "signup"],
-	"homepage": "https://github.com/RitaCo/cakephp-users-plugin",
-	"license": "MIT",
-	"version": "0.1.0",
-	"authors": [
-		{
-			"name": "Saleh Souzanchi",
-			"role": "Author",
-			"homepage": "http://www.ritaco.net"
-		}
-	],
-	"require":{
-		"php": ">=5.4",
+    "name": "ritaco/users",
+    "type": "cakephp-plugin",
+    "description": "This plugin is a set of tools for user handling like registration, login, email verification, password reset and much more.",
+    "keywords": ["cakephp", "plugin", "users", "user-management", "login", "registration", "signup"],
+    "homepage": "https://github.com/RitaCo/cakephp-users-plugin",
+    "license": "MIT",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Saleh Souzanchi",
+            "role": "Author",
+            "homepage": "http://www.ritaco.net"
+        }
+    ],
+    "require":{
+        "php": ">=5.4",
         "cakephp/plugin-installer": "0.0.1",
-		"cakephp/cakephp": "3.0.*-dev"
-	},
-	"autoload": {
-		"psr-4": {
-			"RitaUsers\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"RitaUsers\\Test\\": "tests",
-			"Cake\\Test\\Fixture\\": "vendor/cakephp/cakephp/tests/Fixture"
-		}
-	},
-	"support":{
-		"source": "https://github.com/RitaCo/cakephp-users-plugin",
-		"issues": "https://github.com/RitaCo/cakephp-users-plugin/issues"
-	},
-	"extra": {
-		"installer-name": "RitaUsers"
-	}
+        "cakephp/cakephp": "3.0.*-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "RitaUsers\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RitaUsers\\Test\\": "tests",
+            "Cake\\Test\\Fixture\\": "vendor/cakephp/cakephp/tests/Fixture"
+        }
+    },
+    "support":{
+        "source": "https://github.com/RitaCo/cakephp-users-plugin",
+        "issues": "https://github.com/RitaCo/cakephp-users-plugin/issues"
+    },
+    "extra": {
+        "installer-name": "RitaUsers"
+    }
 }

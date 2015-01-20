@@ -17,11 +17,12 @@
 		
 		
 				
-		<?= $this->Html->css('front.css') ?>
+		
 		
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>
+    <?= $this->Html->css('front.css') ?>
 </head>
 <body>
 <div class="grid-container">
@@ -30,9 +31,11 @@
         <div style=" vertical-align: middle; display: table-cell;">
         <br />
         <br />
+        	<div class="container">
             <?= $this->Flash->render('auth') ?>
             
             <?= $this->Flash->render() ?>
+            </div>
              <br />  
     		<?= $this->fetch('content') ?>
             <br />

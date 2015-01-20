@@ -1,0 +1,53 @@
+@import (reference) "G:\xampp\htdocs\RitaLess\rita-base";
+#loginIn-box{
+           
+    
+    width: 250px;
+    background-color: #fafafa;
+    border-right: 1px solid silver;
+    .flex-box();
+    .flex-col(); 
+    
+    align-items:stretch ;
+    align-content : stretch; 
+    
+    > div{
+    .flex-box();
+    .flex-col(); 
+    align-items:center ;
+    align-content : stretch; 
+    }       
+    .avator-block{
+      margin: 0px 10px;
+        
+        position: relative;
+        >img{
+            background-color: #cfcfcf;
+            border-radius: 50px;
+            border: 1px solid #000;    
+            display: block;
+            width: 50px;
+            height: 50px;
+        }
+    }
+    .info-block{
+        flex:1;
+        span{
+            font-size: 16px;
+            font-family: Wnasim;
+        }
+        
+       }
+    .logout-block{
+        margin-right: 5px;
+        padding: 0px 5px;
+        background-color: red;
+        color: #fff;
+        
+        &:hover{
+            background-color:#E36159;
+            color: #FFF300;
+        }
+    }       
+}
+

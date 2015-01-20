@@ -1,0 +1,62 @@
+#loginIn-box {
+  width: 250px;
+  background-color: #fafafa;
+  border-right: 1px solid silver;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row ;
+      -ms-flex-direction: row ;
+          flex-direction: row ;
+  -webkit-align-items: stretch ;
+      -ms-flex-align: stretch ;
+          align-items: stretch ;
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+}
+#loginIn-box > div {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row ;
+      -ms-flex-direction: row ;
+          flex-direction: row ;
+  -webkit-align-items: center ;
+      -ms-flex-align: center ;
+          align-items: center ;
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+}
+#loginIn-box .avator-block {
+  margin: 0px 10px;
+  position: relative;
+}
+#loginIn-box .avator-block > img {
+  background-color: #cfcfcf;
+  border-radius: 50px;
+  border: 1px solid #000;
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+#loginIn-box .info-block {
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+#loginIn-box .info-block span {
+  font-size: 16px;
+  font-family: Wnasim;
+}
+#loginIn-box .logout-block {
+  margin-right: 5px;
+  padding: 0px 5px;
+  background-color: red;
+  color: #fff;
+}
+#loginIn-box .logout-block:hover {
+  background-color: #E36159;
+  color: #FFF300;
+}

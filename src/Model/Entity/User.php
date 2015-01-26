@@ -16,7 +16,8 @@ class User extends Entity
      *
      * @var array
      */
-    
+
+   protected $_virtual = ['full_name'];    
  
     protected $_accessible = [
     'email' => true,
@@ -58,6 +59,18 @@ class User extends Entity
         return strtolower($email);
     }
 
+
+
+    /**
+     * User::_getFullName()
+     * 
+     * @return
+     */
+    protected function _getFullName()
+    {
+        return $this->_properties['last_name'] . '  ' .
+            $this->_properties['first_name'];
+    }
     
     /**
      * User::_setPassword()

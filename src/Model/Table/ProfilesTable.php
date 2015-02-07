@@ -22,7 +22,7 @@ class ProfilesTable extends Table
     {
         $this->table('user_profiles');
         $this->primaryKey('user_id');
-        $this->addBehavior('RitaTools.Persian');
+        $this->addBehavior('Rita/Tools.Persian');
         
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',

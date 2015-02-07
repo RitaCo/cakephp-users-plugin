@@ -14,7 +14,7 @@ use Cake\Utility\String;
 use Cake\Database\Type;
 use Cake\Database\Schema\Table as Schema;
 
-Type::map('json', 'RitaTools\Database\Type\JsonType');
+Type::map('json', 'Rita\Tools\Database\Type\JsonType');
 
 /**
  * Users Model
@@ -35,7 +35,7 @@ class UsersTable extends Table
         $this->displayField('email');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
-        $this->addBehavior('RitaTools.Persian');
+        $this->addBehavior('Rita/Tools.Persian');
         $this->belongsTo('Roles', [
         'alias' => 'Roles',
         'foreignKey' => 'role_id',

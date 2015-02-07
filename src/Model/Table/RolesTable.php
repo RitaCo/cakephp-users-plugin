@@ -23,7 +23,7 @@ class RolesTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
-        $this->addBehavior('RitaTools.Persian');
+        $this->addBehavior('Rita/Tools.Persian');
     }
 
     /**

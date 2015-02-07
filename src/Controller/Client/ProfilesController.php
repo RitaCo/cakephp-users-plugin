@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Controller;
+namespace RitaUsers\Controller\Client;
 
 use Cake\Event\Event;
 use RitaUsers\Controller\AppController;

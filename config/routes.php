@@ -46,18 +46,18 @@ Router::prefix('admin', function($routes)
 /**
  *  Client Router
  */
-Router::scope('/client', ['section' => 'clients'], function($routes)
+Router::prefix('client', function($routes)
 {
     $routes->connect(
         '/profile',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index'],
-        ['routeClass' => 'InflectedRoute']
+        ['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index']
+        
     );
 
     $routes->connect(
         '/profile/:action/*',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles'],
-        ['routeClass' => 'InflectedRoute']
+        ['plugin' => 'RitaUsers', 'controller' => 'Profiles']
+        
     );
 
 

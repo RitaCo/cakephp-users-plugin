@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Test\Fixture;
+namespace Rita\Users\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 

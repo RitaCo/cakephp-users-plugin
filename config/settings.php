@@ -3,7 +3,8 @@
 return [
     'css' => [
         'base' => [],
-        'admin' => ['RitaUsers.users-admin.css'],
-        'front' => ['RitaUsers.users-front.css']
+        'admin' => ['Rita/Users.users-admin.css'],
+        'client' => ['Rita/Users.users-front.css'],
+        'front' => ['Rita/Users.users-front.css']
     ]
 ];

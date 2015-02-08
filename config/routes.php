@@ -9,17 +9,17 @@ Router::scope('/', function($routes)
 {
     $routes->connect(
         '/login',
-        ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'login']
+        ['plugin' => 'Rita/Users', 'controller' => 'Users','action' => 'login']
     );
     
      $routes->connect(
          '/logout',
-         ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'logout']
+         ['plugin' => 'Rita/Users', 'controller' => 'Users','action' => 'logout']
      );
     
      $routes->connect(
          '/register',
-         ['plugin' => 'RitaUsers', 'controller' => 'Users','action' => 'register']
+         ['plugin' => 'Rita/Users', 'controller' => 'Users','action' => 'register']
      );
 
      $routes->fallbacks('InflectedRoute');
@@ -32,13 +32,13 @@ Router::scope('/', function($routes)
 
 Router::prefix('admin', function($routes)
 {
-    $routes->plugin('RitaUsers', [ 'path' => '/userManger'], function($routes)
+    $routes->plugin('Rita/Users', [ 'path' => '/userManger'], function($routes)
     {
-        $routes->redirect(
+        $routes->connect(
             '/',
             ['controller' => 'Dashboard','action' => 'index']
         );
-        $routes->fallbacks('InflectedRoute');
+        $routes->fallbacks();
     });
 });
 
@@ -50,13 +50,13 @@ Router::prefix('client', function($routes)
 {
     $routes->connect(
         '/profile',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles','action' => 'index']
+        ['plugin' => 'Rita/Users', 'controller' => 'Profiles','action' => 'index']
         
     );
 
     $routes->connect(
         '/profile/:action/*',
-        ['plugin' => 'RitaUsers', 'controller' => 'Profiles']
+        ['plugin' => 'Rita/Users', 'controller' => 'Profiles']
         
     );
 

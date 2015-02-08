@@ -1,7 +1,7 @@
 <?php
 use \Cake\Core\Configure;
 
-Configure::write('RitaUsers', [
+Configure::write('Rita.Users', [
 
 
     'Register' => [

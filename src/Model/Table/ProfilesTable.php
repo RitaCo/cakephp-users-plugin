@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Model\Table;
+namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -21,12 +21,12 @@ class ProfilesTable extends Table
     public function initialize(array $config)
     {
         $this->table('user_profiles');
-        $this->primaryKey('user_id');
+        $this->primaryKey('id');
         $this->addBehavior('Rita/Tools.Persian');
         
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'className' => 'RitaUsers.Users'
+            'className' => 'Rita/Users.Users'
         ]);
     }
 

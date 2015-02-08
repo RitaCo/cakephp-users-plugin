@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Model\Table;
+namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\Table;
@@ -39,11 +39,12 @@ class UsersTable extends Table
         $this->belongsTo('Roles', [
         'alias' => 'Roles',
         'foreignKey' => 'role_id',
-        'className' => 'RitaUsers.Roles'
+        'className' => 'Rita/Users.Roles'
         ]);
         $this->hasOne('Profiles', [
             'alias' => 'Profiles',
-            'className' => 'RitaUsers.Profiles'
+            'foreignKey' => 'user_id',
+            'className' => 'Rita/Users.Profiles'
         ]);
         
     }

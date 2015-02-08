@@ -1,8 +1,8 @@
 <?php
-namespace RitaUsers\Controller\Client;
+namespace Rita\Users\Controller\Client;
 
 use Cake\Event\Event;
-use RitaUsers\Controller\AppController;
+use Rita\Users\Controller\AppController;
 
 class ProfilesController extends AppController
 {
@@ -33,7 +33,7 @@ class ProfilesController extends AppController
     {
         
         parent::initialize();
-        $this->loadModel('RitaUsers.Users');
+        $this->loadModel('Rita/Users.Users');
     }
     
     
@@ -46,7 +46,7 @@ class ProfilesController extends AppController
     {
         $this->redirect([
             'action' => 'personal',
-            'section' =>true
+            
         ]);
     }
     
@@ -68,7 +68,7 @@ class ProfilesController extends AppController
             
             if ($this->Users->save($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                return $this->redirect(['action' => 'personal', 'section' => true]);
+                return $this->redirect(['action' => 'personal']);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                 $this->Flash->info('. لطفا مجدد سعی نمایید');
@@ -100,7 +100,7 @@ class ProfilesController extends AppController
                   
             if ($this->Users->save($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                return $this->redirect(['action' => 'password', 'section' => true]);
+                return $this->redirect(['action' => 'password']);
             }
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                              

@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Model\Table;
+namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\Table;

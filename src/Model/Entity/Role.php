@@ -1,5 +1,5 @@
 <?php
-namespace RitaUsers\Model\Entity;
+namespace Rita\Users\Model\Entity;
 
 use Cake\ORM\Entity;
 

@@ -1,9 +1,9 @@
 <?php
-namespace RitaUsers\Controller;
+namespace Rita\Users\Controller;
 
 use \Cake\Core\Configure;
 use Cake\Event\Event;
-use RitaUsers\Controller\AppController;
+use Rita\Users\Controller\AppController;
 
 class UsersController extends AppController
 {

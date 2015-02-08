@@ -12,4 +12,4 @@ EventManager::instance()->attach(function (Event $event, $user) {
     
     $event->subject()->Flash->info(' ایمیل فعال سازی به ایمیل شما ارسال گردید، لطفا ایمیل خود را چک نمایید.');
     
-}, 'RitaUsers.afterRegister');
+}, 'Rita.Users.afterRegister');

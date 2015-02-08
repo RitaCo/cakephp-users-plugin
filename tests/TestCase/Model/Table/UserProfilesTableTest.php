@@ -1,9 +1,9 @@
 <?php
-namespace RitaUsers\Test\TestCase\Model\Table;
+namespace Rita\Users\Test\TestCase\Model\Table;
 
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use RitaUsers\Model\Table\UserProfilesTable;
+use Rita\Users\Model\Table\UserProfilesTable;
 
 /**
  * RitaUsers\Model\Table\UserProfilesTable Test Case

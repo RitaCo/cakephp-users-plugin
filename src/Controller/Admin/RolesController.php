@@ -1,7 +1,7 @@
 <?php
-namespace RitaUsers\Controller\admin;
+namespace Rita\Users\Controller\admin;
 
-use RitaUsers\Controller\AppController;
+use Rita\Users\Controller\AppController;
 
 /**
  * Roles Controller

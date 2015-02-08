@@ -1,8 +1,8 @@
 <?php
-namespace RitaUsers\Test\TestCase\Controller;
+namespace Rita\Users\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestCase;
-use RitaUsers\Controller\UsersController;
+use Rita\Users\Controller\UsersController;
 
 /**
  * RitaUsers\Controller\UsersController Test Case

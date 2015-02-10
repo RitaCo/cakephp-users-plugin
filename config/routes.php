@@ -36,7 +36,7 @@ Router::prefix('admin', function($routes)
     {
         $routes->connect(
             '/',
-            ['controller' => 'Dashboard','action' => 'index']
+            ['controller' => 'DashBoard','action' => 'index']
         );
         $routes->fallbacks();
     });

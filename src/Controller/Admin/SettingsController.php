@@ -1,15 +1,12 @@
 <?php
-
 namespace Rita\Users\Controller\Admin;
 
 use Rita\Users\Controller\AppController;
 
-class DashBoardController extends AppController
+class SettingsController extends AppController
 {
-    
-    
     public function index()
     {
-    
+        $this->redirect(['controller' => 'Dashboard']);
     }
 }

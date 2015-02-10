@@ -9,9 +9,9 @@ $this->assign('note','در این بخش شما میتوانید به تمامی
 
 <div id="ActionInDashBoard">
 
-    <?= $this->Html->linkIcon('اعضا','  fa fa-users',['controller' => 'Notices']); ?>
-    <?= $this->Html->linkIcon('نقش‌ها','  icon-list-alt',['controller' => 'Notices']); ?>
-    <?= $this->Html->linkIcon('تنظیمات','  icon-list-alt',['controller' => 'Notices']); ?>
+    <?= $this->Html->linkIcon('اعضا','  fa fa-users',['controller' => 'users']); ?>
+    <?= $this->Html->linkIcon('نقش‌ها','  icon-list-alt',['controller' => 'roles']); ?>
+    <?= $this->Html->linkIcon('تنظیمات','  icon-list-alt',['controller' => 'settings']); ?>
 
 </div>
 

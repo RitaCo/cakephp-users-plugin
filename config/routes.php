@@ -22,7 +22,7 @@ Router::scope('/', function($routes)
          ['plugin' => 'Rita/Users', 'controller' => 'Users','action' => 'register']
      );
 
-     $routes->fallbacks('InflectedRoute');
+     $routes->fallbacks();
 });
 
 
@@ -32,7 +32,7 @@ Router::scope('/', function($routes)
 
 Router::prefix('admin', function($routes)
 {
-    $routes->plugin('Rita/Users', [ 'path' => '/userManger'], function($routes)
+    $routes->plugin('Rita/Users', [ 'path' => '/user-manger'], function($routes)
     {
         $routes->connect(
             '/',

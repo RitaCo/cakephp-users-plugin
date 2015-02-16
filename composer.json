@@ -31,6 +31,6 @@
         "issues": "https://github.com/RitaCo/cakephp-users-plugin/issues"
     },
     "extra": {
-        "installer-name": "Rita\Users"
+        "installer-name": "Rita/Users"
     }
 }

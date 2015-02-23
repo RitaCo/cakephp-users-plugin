@@ -9,7 +9,7 @@ class ProfilesController extends AppController
 
 
     protected $userID = null;
-
+    protected $profileID = null;
 
     /**
      * ProfilesController::beforeFilter()
@@ -21,6 +21,7 @@ class ProfilesController extends AppController
     {
         parent::beforeFilter($event);
         $this->userID = $this->Auth->user('id');
+        $this->profileID= $this->Auth->user('profile.id');
     }
 
 
@@ -59,14 +60,12 @@ class ProfilesController extends AppController
     public function personal()
     {
     
-        $user = $this->Users->get($this->userID, ['contain' => 'Profiles']);
+        $Profile = $this->Profiles->get($this->profileID);
             
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data, [
-                'associated' => ['Profiles']
-            ]);
+            $user = $this->Profiles->patchEntity($Profile, $this->request->data);
             
-            if ($this->Users->save($user)) {
+            if ($this->Profiles->save($Profile)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
                 return $this->redirect(['action' => 'personal']);
             } else {
@@ -75,7 +74,7 @@ class ProfilesController extends AppController
             }
         }
         
-        $this->set('user', $user);
+        $this->set('Profile', $Profile);
     }
     
     

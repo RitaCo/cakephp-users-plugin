@@ -1,10 +1,26 @@
 <?php
 namespace Rita\Users\Model\Table;
 
-use Cake\ORM\Query;
+
+use Cake\Auth\DefaultPasswordHasher;
+use Cake\Database\Schema\Table as Schema;
+use Cake\Event\Event;
+use Cake\Event\EventManager;
+use Cake\Event\EventManagerTrait;
+use Cake\Datasource\EntityInterface;
+use Cake\Database\Type;
+use Cake\ORM\Entity;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Utility\String;
+use Rita\Users\Model\Entity\User;
+use Rita\Users\Model\Entity\Profile;
+
+Type::map('json', 'Rita\Tools\Database\Type\JsonType');
+
+
 
 /**
  * UserProfiles Model
@@ -31,6 +47,22 @@ class ProfilesTable extends Table
 
     }
 
+
+
+    /**
+     * ProfilesTable::_initializeSchema()
+     * 
+     * @param mixed $schema
+     * @return
+     */
+    protected function _initializeSchema(Schema $schema)
+    {
+        $schema->columnType('mobile', 'json');
+        return $schema;
+    }
+    
+    
+    
     /**
      * Default validation rules.
      *
@@ -45,8 +77,8 @@ class ProfilesTable extends Table
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id')
-            ->allowEmpty('first_name')
-            ->allowEmpty('last_name')
+            ->notEmpty('first_name')
+            ->notEmpty('last_name')
             ->allowEmpty('phone')
             ->add('mobile', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('mobile')

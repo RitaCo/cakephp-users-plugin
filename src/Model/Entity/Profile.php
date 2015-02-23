@@ -2,7 +2,7 @@
 namespace Rita\Users\Model\Entity;
 
 use Cake\ORM\Entity;
-
+use Cake\Log\log;
 /**
  * UserProfile Entity.
  */
@@ -11,7 +11,11 @@ class Profile extends Entity
     
     
     
-    protected $_virtual = ['full_name']; 
+    protected $_virtual = [
+        'full_name',
+        'newmob'
+        
+    ]; 
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -42,5 +46,29 @@ class Profile extends Entity
     {
         return $this->_properties['last_name'] . '  ' . $this->_properties['first_name'];
     }
+
+
+
+    protected function _setMobile($mobile)
+    {
+        //$m = $this->_properties['mobile'];
+        $m = [
+          'current' => 09181117209,
+          'changed' => false,
+          'old' => null  
         
+        ];
+        //$this->set('mobile',$m);
+        
+        Log::debug($mobile);
+        
+        return $mobile;
+    }
+    
+    protected function _getMobile($mobile)
+    {
+          //  Log::debug($this->_properties['mobile']);
+        return [1,1];
+    }        
+            
 }

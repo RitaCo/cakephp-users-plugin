@@ -2,6 +2,7 @@
 use Cake\Event\Event;
 use Cake\Event\EventManager;
 use Cake\Log\Log;
+use Cake\Network\Session;
 
 EventManager::instance()->attach(function (Event $event, $user) {
     $confirmEmail = $event->subject()->Users->getConfig('Register.confirmEmail');
@@ -18,7 +19,9 @@ EventManager::instance()->attach(function (Event $event, $user) {
 
 
 $check = function(Event $event ,$param){
-   Log::debug($param); 
+   $session  = $event->subject()->session;
+   
+   Log::debug($session->read()); 
    
 };
 

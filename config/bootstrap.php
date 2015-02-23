@@ -15,9 +15,17 @@ Configure::write('Rita.Users', [
         'confrimSms' => false,
         'last' => true
     
+    ],
+
+    'Profile' => [
+        'importentField' => [
+            'first_name',
+            'last_name',
+            'mobile',
+            'sex',
+        ]
+    
     ]
-
-
 
 
 ]);

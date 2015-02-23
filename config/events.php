@@ -13,3 +13,14 @@ EventManager::instance()->attach(function (Event $event, $user) {
     $event->subject()->Flash->info(' ایمیل فعال سازی به ایمیل شما ارسال گردید، لطفا ایمیل خود را چک نمایید.');
     
 }, 'Rita.Users.afterRegister');
+
+
+
+
+$check = function(Event $event ,$param){
+   Log::debug($param); 
+   
+};
+
+EventManager::instance()->attach($check, 'Auth.afterIdentify');
+

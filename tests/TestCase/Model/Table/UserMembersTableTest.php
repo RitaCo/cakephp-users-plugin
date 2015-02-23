@@ -3,12 +3,12 @@ namespace Rita\Users\Test\TestCase\Model\Table;
 
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use Rita\Users\Model\Table\UserProfilesTable;
+use Rita\Users\Model\Table\UserMembersTable;
 
 /**
- * Rita\Users\Model\Table\UserProfilesTable Test Case
+ * Rita\Users\Model\Table\UserMembersTable Test Case
  */
-class UserProfilesTableTest extends TestCase
+class UserMembersTableTest extends TestCase
 {
 
     /**
@@ -17,10 +17,8 @@ class UserProfilesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'UserProfiles' => 'plugin.rita/users.user_profiles',
-        'Users' => 'plugin.rita/users.users',
-        'Roles' => 'plugin.rita/users.roles',
-        'Profiles' => 'plugin.rita/users.profiles'
+        'UserMembers' => 'plugin.rita/users.user_members',
+        'Roles' => 'plugin.rita/users.roles'
     ];
 
     /**
@@ -31,7 +29,7 @@ class UserProfilesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('UserProfiles') ? [] : ['className' => 'Rita\Users\Model\Table\UserProfilesTable'];        $this->UserProfiles = TableRegistry::get('UserProfiles', $config);    }
+        $config = TableRegistry::exists('UserMembers') ? [] : ['className' => 'Rita\Users\Model\Table\UserMembersTable'];        $this->UserMembers = TableRegistry::get('UserMembers', $config);    }
 
     /**
      * tearDown method
@@ -40,7 +38,7 @@ class UserProfilesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->UserProfiles);
+        unset($this->UserMembers);
 
         parent::tearDown();
     }

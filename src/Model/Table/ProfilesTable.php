@@ -21,13 +21,14 @@ class ProfilesTable extends Table
     public function initialize(array $config)
     {
         $this->table('user_profiles');
+        $this->displayField('id');
         $this->primaryKey('id');
-        $this->addBehavior('Rita/Tools.Persian');
-        
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'className' => 'Rita/Users.Users'
         ]);
+        $this->addBehavior('Rita/Tools.Persian');
+
     }
 
     /**
@@ -39,18 +40,26 @@ class ProfilesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->allowEmpty('id', 'create')
             ->add('user_id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('user_id')
-            ->allowEmpty('sex')
+            ->requirePresence('user_id', 'create')
+            ->notEmpty('user_id')
+            ->allowEmpty('first_name')
             ->allowEmpty('last_name')
+            ->allowEmpty('phone')
+            ->add('mobile', 'valid', ['rule' => 'numeric'])
+            ->allowEmpty('mobile')
+            ->add('sex', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('sex', 'create')
+            ->notEmpty('sex')
             ->add('brith', 'valid', ['rule' => 'date'])
             ->allowEmpty('brith')
             ->allowEmpty('avatarEmail')
-            ->requirePresence('websiteUrl', 'create')
-            ->notEmpty('websiteUrl')
+            ->allowEmpty('websiteUrl')
             ->allowEmpty('twitterUrl')
-            ->requirePresence('facebookUrl', 'create')
-            ->notEmpty('facebookUrl');
+            ->allowEmpty('facebookUrl');
+
 
         return $validator;
     }

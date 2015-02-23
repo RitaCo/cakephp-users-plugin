@@ -28,6 +28,9 @@ class User extends Entity
         'status' => true,
         'hidden' => true,
         'role' => true,
+        'old_password' => true,
+        'user_password' =>true,
+        'confirm_password' => true,
         'accounting' => true,
         'profiles' => true,
     ];
@@ -52,8 +55,29 @@ class User extends Entity
     }
 
 
+    /**
+     * User::_getMeta()
+     * 
+     * @param mixed $meta
+     * @return
+     */
+    protected function _getMeta($meta)
+    {
+        return $meta;
+    }
 
 
+    /**
+     * User::_setMeta()
+     * 
+     * @param mixed $meta
+     * @return
+     */
+    protected function _setMeta($meta)
+    {
+        $meta = $meta + $config = \Cake\Core\Configure::read('Rita.Users.metaFields');
+        return $meta;
+    }
 
     
     /**

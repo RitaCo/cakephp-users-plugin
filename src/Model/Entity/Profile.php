@@ -20,11 +20,11 @@ class Profile extends Entity
      */
     protected $_accessible = [
         'user_id' => true,
-        'sex' => true,
-        'last_name' => true,
         'first_name' => true,
+        'last_name' => true,
         'phone' => true,
         'mobile' => true,
+        'sex' => true,
         'brith' => true,
         'avatarEmail' => true,
         'websiteUrl' => true,

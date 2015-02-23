@@ -5,10 +5,16 @@ Configure::write('Rita.Users', [
 
 
     'Register' => [
-        'confirmEmail' => true,
+        'confirmEmail' => false,
         'confirmSms' => true,
         'roleID'   => 3,
          
+    ],
+    
+    'metaFields' => [
+        'confrimSms' => false,
+        'last' => true
+    
     ]
 
 

@@ -12,7 +12,10 @@ use Cake\Event\EventManager;
 use Cake\Event\EventManagerTrait;
 use Cake\Utility\String;
 use Cake\Database\Type;
+use Cake\ORM\RulesChecker;
 use Cake\Database\Schema\Table as Schema;
+use Rita\Users\Model\Entity\User;
+use Rita\Users\Model\Entity\Profile;
 
 Type::map('json', 'Rita\Tools\Database\Type\JsonType');
 
@@ -30,22 +33,20 @@ class UsersTable extends Table
      */
     public function initialize(array $config)
     {
-        parent::initialize($config);
+        
         $this->table('user_members');
-        $this->displayField('email');
+        $this->displayField('id');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Rita/Tools.Persian');
         $this->belongsTo('Roles', [
-            'alias' => 'Roles',
             'foreignKey' => 'role_id',
             'className' => 'Rita/Users.Roles'
         ]);
         $this->hasOne('Profiles', [
-            'alias' => 'Profiles',
-            'foreignKey' => 'user_id',
-            'className' => 'Rita/Users.Profiles'
-        ]);
+            'className' => 'Rita/Users.Profiles',
+            'dependent' => true
+        ]);  
         
     }
            
@@ -62,7 +63,18 @@ class UsersTable extends Table
     }
         
 
-
+    /**
+     * UsersTable::buildRules()
+     * 
+     * @param mixed $rules
+     * @return
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->existsIn(['role_id'], 'Roles'));
+        return $rules;
+    }
 
     /**
      * UsersTable::beforeSave()
@@ -80,56 +92,75 @@ class UsersTable extends Table
          
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator instance
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator)
+    public function validationDefaul1t(Validator $validator)
     {
         $validator
-        ->add(
-            'id',
-            'valid',
-            ['rule' => 'numeric']
-        )
-            ->allowEmpty(
-                'id',
-                'create'
-            )
-            ->requirePresence(
-                'user_password',
-                'create'
-            )
-            ->notEmpty('user_password', 'تکمیل این فیلد اجباری می باشد.')
-            ->add('user_password', [
-                'custom' => [
-                    'rule' => function ($value, $context)
-                    {
-                        if (preg_match('/^[_0-9a-zA-Z]{6,18}$/i', $value)) {
-                            return true;
-                        }
-                            return false;
-                    },
-                    'message' => 'پسورد باید بیشتر از ۶ حرف و از حروف و اعداد لاتین تشکیل شده باشد.',
-                    'last' => true
-                ]
-            ])
-        ->add('email', 'valid', ['rule' => 'email'])
-            ->requirePresence('confirm_password', 'create')
-            ->notEmpty('confirm_password', 'تکمیل این فیلد اجباری می باشد.')
-            ->add('confirm_password', 'custom', [
-                'rule' => function($value, $context) {
+            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->allowEmpty('id', 'create')
+            ->add('uuid', 'valid', ['rule' => 'uuid'])
+            ->requirePresence('uuid', 'create')
+            ->notEmpty('uuid')
+            ->add('role_id', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('role_id', 'create')
+            ->notEmpty('role_id')
+            ->add('email', 'valid', ['rule' => 'email'])
+            ->requirePresence('email', 'create')
+            ->notEmpty('email')
+            ->requirePresence('password', 'create')
+            ->notEmpty('password')
+            ->add('confirm_email', 'valid', ['rule' => 'boolean'])
+            ->allowEmpty('confirm_email')
+            ->allowEmpty('meta')
+            ->add('status', 'valid', ['rule' => 'boolean'])
+            ->requirePresence('status', 'create')
+            ->notEmpty('status')
+            ->add('hidden', 'valid', ['rule' => 'boolean'])
+            ->requirePresence('hidden', 'create')
+            ->notEmpty('hidden');
+
+        return $validator;
+    }
+
+
+
+    /**
+     * UsersTable::validationRegister()
+     * 
+     * @param mixed $validator
+     * @return
+     */
+    public function validationRegister(Validator $validator)
+    {
+        $validator
+        ->requirePresence('user_password', 'create')
+        ->notEmpty('user_password', 'تکمیل این فیلد اجباری می باشد.')
+        ->add('user_password', [
+            'custom' => [
+                'rule' => function ($value, $context)
+                {
+                    if (preg_match('/^[_0-9a-zA-Z]{6,18}$/i', $value)) {
+                        return true;
+                    }
                     
-                      
-                    return ($value === $context['data']['user_password']);
+                    return false;
                 },
-                'message' => 'تکرار با رمز عبور مطابقت ندارد'
-            ])
-        ->requirePresence('email', 'create')
-        ->notEmpty('email', 'تکمیل این فیلد اجباری می باشد.')
-        ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table','message' => 'ایمیل تکراری است'])
+                'message' => 'پسورد باید بیشتر از ۶ حرف و از حروف و اعداد لاتین تشکیل شده باشد.',
+                'last' => true
+            ]
+        ])
+        ->requirePresence('confirm_password', 'create')
+        ->notEmpty('confirm_password', 'تکمیل این فیلد اجباری می باشد.')
+        ->add('confirm_password', 'custom', [
+            'rule' => function($value, $context) 
+            {
+                return ($value === $context['data']['user_password']);
+            },
+            'message' => 'تکرار با رمز عبور مطابقت ندارد'
+        ])
+            ->add('email', 'valid', ['rule' => 'email'])
+            ->requirePresence('email', 'create')
+            ->notEmpty('email', 'تکمیل این فیلد اجباری می باشد.')
+        ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table','message' => 'این ایمیل توسط شخص دیگری مورد استفاده قرار گرفته است.'])
         ->add('role_id', 'valid', ['rule' => 'numeric'])
         ->requirePresence('role_id', 'create')
         ->notEmpty('role_id');
@@ -245,10 +276,11 @@ class UsersTable extends Table
      */
     public function register(EntityInterface $entity, $options = [])
     {
+        
         $configs = array_merge($options, $this->getConfig('Register'));
         $entity->hiddenProperties([]);
 
-        $event = $this->dispatchEvent('RitaUsers.beforeAddUser', [$entity, $options]);
+        $event = $this->dispatchEvent('RitaUser.User.beforeCreate', [$entity, $options]);
         if ($event->result instanceof Response) {
             return $event->result;
         }
@@ -265,19 +297,20 @@ class UsersTable extends Table
 
         $entity->uuid = String::uuid();
         $entity->status = true;
-        $entity->confirm_email = ($configs['confirmEmail']) ? 0 : null;
-        $entity->confirm_sms = ($configs['confirmEmail']) ? 0 : null;
-        $entity->meta = [];
+        $entity->profiles = [];
+//        $entity->confirm_email = ($configs['confirmEmail']) ? 0 : null;
+//        $entity->confirm_sms = ($configs['confirmEmail']) ? 0 : null;
+        $entity->meta = \Cake\Core\Configure::read('Rita.Users.metaFields');
         
-        $this->__confirmEmail($entity, $configs);
+       // $this->__confirmEmail($entity, $configs);
 
-
+        \Cake\Log\Log::debug($entity);
         $res = $this->save($entity);
 
-        
+        \Cake\Log\Log::debug($entity);
         
 
-        $this->dispatchEvent('RitaUsers.afterAddUser', [$entity]);
+        $this->dispatchEvent('RitaUser.User.afterCreate', [$entity]);
         return $res;
     }
 

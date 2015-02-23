@@ -31,15 +31,15 @@ class UsersTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-        $this->table('users');
+        $this->table('user_members');
         $this->displayField('email');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Rita/Tools.Persian');
         $this->belongsTo('Roles', [
-        'alias' => 'Roles',
-        'foreignKey' => 'role_id',
-        'className' => 'Rita/Users.Roles'
+            'alias' => 'Roles',
+            'foreignKey' => 'role_id',
+            'className' => 'Rita/Users.Roles'
         ]);
         $this->hasOne('Profiles', [
             'alias' => 'Profiles',
@@ -245,7 +245,7 @@ class UsersTable extends Table
      */
     public function register(EntityInterface $entity, $options = [])
     {
-        $configs = $options+ $this->getConfig('Register');
+        $configs = array_merge($options, $this->getConfig('Register'));
         $entity->hiddenProperties([]);
 
         $event = $this->dispatchEvent('RitaUsers.beforeAddUser', [$entity, $options]);
@@ -396,7 +396,7 @@ class UsersTable extends Table
      */
     public function getConfig($key)
     {
-        $key = 'RitaUsers.'.$key;
+        $key = 'Rita.Users.'.$key;
         $config = \Cake\Core\Configure::read($key);
         return $config;
     }

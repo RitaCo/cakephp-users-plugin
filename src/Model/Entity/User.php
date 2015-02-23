@@ -16,28 +16,20 @@ class User extends Entity
      *
      * @var array
      */
-
-   protected $_virtual = ['full_name'];    
+  
  
     protected $_accessible = [
-    'email' => true,
-    'password' => true,
-        'old_password' => true,
-        'user_password' =>true,
-        'confirm_password' => true,
-    'last_name' => true,
-    'first_name' => true,
-    'confirm_email' => true,
-    'confirm_sms' => true,
-    'meta' => true,
-    'role_id' => false,
-    'status' => true,
-    'last_action' => true,
-    'last_login' => true,
-    'hidden' => true,
-    'role' => true,
-        'profile' => true,
-    'notices_count' => true,
+        'uuid' => true,
+        'role_id' => true,
+        'email' => true,
+        'password' => true,
+        'confirm_email' => true,
+        'meta' => true,
+        'status' => true,
+        'hidden' => true,
+        'role' => true,
+        'accounting' => true,
+        'profiles' => true,
     ];
 
 //    protected $_hidden = [
@@ -61,16 +53,8 @@ class User extends Entity
 
 
 
-    /**
-     * User::_getFullName()
-     * 
-     * @return
-     */
-    protected function _getFullName()
-    {
-        return $this->_properties['last_name'] . '  ' .
-            $this->_properties['first_name'];
-    }
+
+
     
     /**
      * User::_setPassword()

@@ -8,6 +8,10 @@ use Cake\ORM\Entity;
  */
 class Profile extends Entity
 {
+    
+    
+    
+    protected $_virtual = ['full_name']; 
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -18,6 +22,9 @@ class Profile extends Entity
         'user_id' => true,
         'sex' => true,
         'last_name' => true,
+        'first_name' => true,
+        'phone' => true,
+        'mobile' => true,
         'brith' => true,
         'avatarEmail' => true,
         'websiteUrl' => true,
@@ -25,4 +32,15 @@ class Profile extends Entity
         'facebookUrl' => true,
         'user' => true,
     ];
+
+    /**
+     * Profile::_getFullName()
+     * 
+     * @return
+     */
+    protected function _getFullName()
+    {
+        return $this->_properties['last_name'] . '  ' . $this->_properties['first_name'];
+    }
+        
 }

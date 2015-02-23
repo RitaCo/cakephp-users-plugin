@@ -19,8 +19,6 @@ $this->layout = 'login';
 				<?= $this->Form->input('email', ['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>
 				<?= $this->Form->input('user_password', ['type' => 'password','label' => 'رمزعبور', 'dir' => 'ltr' ]); ?>
 				<?= $this->Form->input('confirm_password', ['type' => 'password','label' => 'تکرار رمزعبور', 'dir' => 'ltr' ]); ?>
-				<?= $this->Form->input('first_name', ['label' => 'نام' ]); ?>
-				<?= $this->Form->input('last_name', ['label' => 'نام خانوادگی' ]); ?>
 
                     
                     </div>

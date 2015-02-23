@@ -35,7 +35,7 @@ class UsersTable extends Table
     {
         
         $this->table('user_members');
-        $this->displayField('id');
+        $this->displayField('email');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Rita/Tools.Persian');
@@ -61,6 +61,9 @@ class UsersTable extends Table
         $schema->columnType('meta', 'json');
         return $schema;
     }
+
+
+
         
 
     /**
@@ -75,6 +78,10 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
         return $rules;
     }
+
+
+
+
 
     /**
      * UsersTable::beforeSave()
@@ -136,8 +143,7 @@ class UsersTable extends Table
         ->notEmpty('user_password', 'تکمیل این فیلد اجباری می باشد.')
         ->add('user_password', [
             'custom' => [
-                'rule' => function ($value, $context)
-                {
+                'rule' => function ($value, $context) {
                     if (preg_match('/^[_0-9a-zA-Z]{6,18}$/i', $value)) {
                         return true;
                     }
@@ -262,11 +268,32 @@ class UsersTable extends Table
 
 
 
+    /**
+     * UsersTable::__getPassword()
+     * 
+     * @param mixed $id
+     * @return
+     */
     private function __getPassword($id)
     {
         return current($this->get(1, ['fields' => ['password']])->toArray());
     }
 
+
+    
+    /**
+     * UsersTable::newUserEntity()
+     * 
+     * @param mixed $data
+     * @return
+     */
+    public function newUserEntity($data)
+    {
+        return $this->newEntity($data,[
+            'associated' => ['Profiles'],
+            'validate' => 'register'
+        ]);  
+    }
     /**
      * UsersTable::register()
      *
@@ -276,40 +303,32 @@ class UsersTable extends Table
      */
     public function register(EntityInterface $entity, $options = [])
     {
-        
         $configs = array_merge($options, $this->getConfig('Register'));
         $entity->hiddenProperties([]);
 
         $event = $this->dispatchEvent('RitaUser.User.beforeCreate', [$entity, $options]);
+        
         if ($event->result instanceof Response) {
             return $event->result;
         }
+        
         if ($event->isStopped()) {
             return false;
         }
-        $entity->role_id = $configs['roleID'];
         
+        $entity->role_id = $configs['roleID'];
         $err = $entity->errors();
         if (!empty($err)) {
             return false;
         }
                 
-
         $entity->uuid = String::uuid();
         $entity->status = true;
-        $entity->profiles = [];
-//        $entity->confirm_email = ($configs['confirmEmail']) ? 0 : null;
-//        $entity->confirm_sms = ($configs['confirmEmail']) ? 0 : null;
+        $entity->set('profile', new Profile);
         $entity->meta = \Cake\Core\Configure::read('Rita.Users.metaFields');
         
        // $this->__confirmEmail($entity, $configs);
-
-        \Cake\Log\Log::debug($entity);
         $res = $this->save($entity);
-
-        \Cake\Log\Log::debug($entity);
-        
-
         $this->dispatchEvent('RitaUser.User.afterCreate', [$entity]);
         return $res;
     }

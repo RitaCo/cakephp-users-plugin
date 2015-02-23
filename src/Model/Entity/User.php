@@ -32,16 +32,14 @@ class User extends Entity
         'user_password' =>true,
         'confirm_password' => true,
         'accounting' => true,
-        'profiles' => true,
+        'profile' => true,
     ];
 
-//    protected $_hidden = [
-//        'password',
-//        'user_password',
-//        'confirm_password',
-//            'old_password'
-//    ];
-//
+    protected $_hidden = [
+        'password',
+        'hidden',
+    ];
+
 
     /**
      * User::_setEmail()

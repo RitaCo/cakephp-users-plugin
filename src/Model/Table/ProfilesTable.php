@@ -12,7 +12,7 @@ use Cake\Database\Type;
 use Cake\ORM\Entity;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Query;
-use Cake\ORM\Table;
+use Rita\Core\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Utility\String;
 use Rita\Users\Model\Entity\User;
@@ -43,7 +43,7 @@ class ProfilesTable extends Table
             'foreignKey' => 'user_id',
             'className' => 'Rita/Users.Users'
         ]);
-        $this->addBehavior('Rita/Tools.Persian');
+
 
     }
 
@@ -77,19 +77,19 @@ class ProfilesTable extends Table
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id')
-            ->notEmpty('first_name')
-            ->notEmpty('last_name')
+            ->notEmpty('first_name','این گزینه می بایست تکمیل گردد.')
+            ->notEmpty('last_name','این گزینه می بایست تکمیل گردد.')
             ->allowEmpty('phone')
             ->add('mobile', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('mobile')
-            ->add('sex', 'valid', ['rule' => 'numeric'])
             ->requirePresence('sex', 'create')
-            ->notEmpty('sex')
+            ->notEmpty('sex','این گزینه می بایست تکمیل گردد.')
             ->add('brith', 'valid', ['rule' => 'date'])
             ->allowEmpty('brith')
             ->allowEmpty('avatarEmail')
             ->allowEmpty('websiteUrl')
             ->allowEmpty('twitterUrl')
+            ->requirePresence('sex', 'update')
             ->allowEmpty('facebookUrl');
 
 

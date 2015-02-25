@@ -2,8 +2,8 @@
 namespace Rita\Users\Model\Entity;
 
 use Cake\Log\Log;
-use Cake\ORM\Entity;
 use Cake\Auth\DefaultPasswordHasher;
+use Rita\Core\ORM\Entity;
 
 /**
  * User Entity.

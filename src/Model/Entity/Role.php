@@ -1,7 +1,7 @@
 <?php
 namespace Rita\Users\Model\Entity;
 
-use Cake\ORM\Entity;
+use Rita\Core\ORM\Entity;
 
 /**
  * UserRole Entity.

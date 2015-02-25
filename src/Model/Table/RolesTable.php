@@ -2,8 +2,9 @@
 namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
-use Cake\ORM\Table;
+
 use Cake\Validation\Validator;
+use Rita\Core\ORM\Table;
 
 /**
  * UserRoles Model
@@ -22,8 +23,6 @@ class RolesTable extends Table
         $this->table('user_roles');
         $this->displayField('name');
         $this->primaryKey('id');
-        $this->addBehavior('Timestamp');
-        $this->addBehavior('Rita/Tools.Persian');
     }
 
     /**

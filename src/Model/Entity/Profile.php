@@ -1,8 +1,9 @@
 <?php
 namespace Rita\Users\Model\Entity;
 
-use Cake\ORM\Entity;
 use Cake\Log\log;
+use Rita\Core\ORM\Entity;
+
 /**
  * UserProfile Entity.
  */

@@ -2,7 +2,6 @@
 namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\Event\Event;
@@ -11,13 +10,14 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventManager;
 use Cake\Event\EventManagerTrait;
 use Cake\Utility\String;
-use Cake\Database\Type;
+
 use Cake\ORM\RulesChecker;
 use Cake\Database\Schema\Table as Schema;
+use Rita\Core\ORM\Table;
 use Rita\Users\Model\Entity\User;
 use Rita\Users\Model\Entity\Profile;
 
-Type::map('json', 'Rita\Tools\Database\Type\JsonType');
+
 
 /**
  * Users Model
@@ -37,8 +37,9 @@ class UsersTable extends Table
         $this->table('user_members');
         $this->displayField('email');
         $this->primaryKey('id');
-        $this->addBehavior('Timestamp');
-        $this->addBehavior('Rita/Tools.Persian');
+        
+        
+        
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'className' => 'Rita/Users.Roles'

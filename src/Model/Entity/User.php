@@ -3,6 +3,7 @@ namespace Rita\Users\Model\Entity;
 
 use Cake\Log\Log;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\TableRegistry;
 use Rita\Core\ORM\Entity;
 
 /**
@@ -40,6 +41,19 @@ class User extends Entity
         'hidden',
     ];
 
+
+    protected function _getProfile($profile)
+    {
+                      
+        if ($profile === null) {
+            $profiles = TableRegistry::get('Rita/Users.Profiles');
+            return $profiles->find('all',['user_id' => $this->_properties['id']])
+                
+                ->cache('users-profiles-'.$this->_properties['id'], 'rita')->first();
+        }
+        return $profile;    
+            
+    }
 
     /**
      * User::_setEmail()

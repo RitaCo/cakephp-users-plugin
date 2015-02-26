@@ -17,23 +17,3 @@ EventManager::instance()->attach(function (Event $event, $user) {
 
 
 
-
-$check = function(Event $event ,$param){
-   $session  = $event->subject()->session;
-   $fields = \Cake\Core\Configure::read('Rita.Users.Profile.fields');
-   $check = 0;
-   foreach($fields as $c){
-     if (empty($param['profile'][$c]) or $param['profile'][$c] === null){
-        $check++;
-     }
-   }
-   
-   if($check !== 0 ){
-    $session->write('profile.Incomplete', true);
-   }
-   
-   
-};
-
-EventManager::instance()->attach($check, 'Auth.afterIdentify');
-

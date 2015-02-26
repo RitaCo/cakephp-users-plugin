@@ -108,4 +108,19 @@ class ProfilesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+    
+    
+    /**
+     * ProfilesTable::afterSave()
+     * 
+     * @param mixed $entity
+     * @param mixed $options
+     * @return void
+     */
+    public function afterSave(Event $event, Entity $entity, ArrayObject $options)
+    {
+        $key = 'users-profiles-'.$entity->user_id;
+        
+        \Cache::delete('users-profiles-'.$entity->user_id,'rita');
+    }
 }

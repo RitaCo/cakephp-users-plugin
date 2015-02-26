@@ -34,7 +34,7 @@ Configure::write('Rita.Users', [
 /**
  *  on user login be must checking this list
  */
-    'onLoginCheckList' => [
+    'loginCheckList' => [
        'incompleteProfile' => true,
        'confirmedEmail' => false, 
     ]

@@ -67,6 +67,7 @@ class ProfilesController extends AppController
             
             if ($this->Profiles->save($Profile)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
+                $this->User->sessionManger('Profile.IsComplete', true);
                 return $this->redirect(['action' => 'personal']);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');

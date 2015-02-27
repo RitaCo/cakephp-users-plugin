@@ -67,7 +67,12 @@ class ProfilesController extends AppController
             
             if ($this->Profiles->save($Profile)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
-                $this->User->sessionManger('Profile.IsComplete', true);
+                
+                if (  $this->request->session()->check('Rita.User.checkList.completedProfile')){
+                    $this->request->session()->delete('Rita.User.checkList.completedProfile');
+                }
+                
+
                 return $this->redirect(['action' => 'personal']);
             } else {
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
@@ -128,16 +133,27 @@ class ProfilesController extends AppController
      */
     public function activeMobile()
     {
-        $Profile = $this->Profiles->newEntity();
+        
+                
+        if (!$this->request->session()->check('sms')) { 
+        
+            $Profile = $this->Profiles->newEntity();
+    
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $Profile = $this->Profiles->patchEntity($Profile,$this->request->data(), ['validate' => 'mobile']);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $Profile = $this->Profiles->patchEntity($Profile,$this->request->data(), ['validate' => 'mobile']);
+                if(!$Profile->errors()){
+                        $this->_sendSMS($this->request->data);    
             
-            if(!$Profile->errors()){
-                $this->_sendSMS($this->request->data);
+                    
+                }
             }
+            $this->set('Profile', $Profile);
+        } else {
+                    
+             $this->_smsActive($this->request->data);
         }
-          $this->set('Profile', $Profile);
+          
     }
     
     
@@ -176,4 +192,37 @@ class ProfilesController extends AppController
         $this->request->session()->write('sms',$param); 
     }
   
+  
+  
+    /**
+     * ProfilesController::_smsActive()
+     * 
+     * @param mixed $data
+     * @return
+     */
+    private function _smsActive($data)
+    {
+        $code = $this->request->session()->read('sms');
+        
+        if( (int)$data['active'] === (int)$code['code']){
+            $profile =  $this->Profiles->get($this->profileID);
+            $profile->mobile = $code['mobile'];
+            $profile = $this->Profiles->save($profile,['validate' => false]);
+
+            if(!$profile) {
+                $this->Flash->info('خطا در فعال سازی');
+                return false;    
+            }   
+        
+            $this->request->session()->delete('sms');
+            $this->request->session()->delete('Rita.User.checkList');
+            $this->Flash->error('شماره موبایل شما مورد تایید قرار گرفت.');
+            $this->redirect('/client');
+            
+        } else {
+            $this->Flash->error('کد فعال سازسی صحیح نمی باشد.');
+            return;        
+        
+        }
+    }
 }

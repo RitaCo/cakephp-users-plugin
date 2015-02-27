@@ -54,8 +54,11 @@ class CheckListComponent extends Component
             return true;
         }
         $checklists = $this->param();
-        
+        if(empty($checklists)){
+            return;
+        }
         foreach($checklists as $task => $status) {
+            
                 return $this->_redirectTo($task,$param);
         
         }        
@@ -91,7 +94,7 @@ class CheckListComponent extends Component
                 continue;
             }
             $res =  $this->{'_'.$key}($user);
-            if($res) {
+            if(!$res) {
                $this->param($key, $res);
             }
         
@@ -143,7 +146,8 @@ class CheckListComponent extends Component
     
         foreach($profileFields as $c){
             //or $param['profile'][$c] === null
-            if (empty($param['profile'][$c]) ){
+            if (empty($user['profile'][$c]) ){
+                
                 return false;
             }
         }
@@ -160,6 +164,9 @@ class CheckListComponent extends Component
      */
     private function _confirmedMobile($user)
     {
+        if (empty($user['profile']['mobile'])){
+            return false;    
+        }
         return true;
     }    
     

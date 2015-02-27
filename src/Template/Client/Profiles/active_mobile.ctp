@@ -17,7 +17,7 @@ $this->extend('TabProfiles');
 </div>
 <?php if(!$this->Session->check('sms')): ?>
 <div class="ui-box">    
-    <div class="box-caption">درخواست شماره جدید.</div>
+    <div class="box-caption">معرفی شماره موبایل .</div>
     <div class="box-body padding-none">
         <?= $this->Form->create($Profile); ?>
         <div class="body-container padding-none">
@@ -34,9 +34,9 @@ $this->extend('TabProfiles');
 </div>
 <?php else: ?>
 <div class="ui-box">    
-    <div class="box-caption">درخواست شماره جدید.</div>
+    <div class="box-caption">فرم فعال سازی.</div>
     <div class="box-body padding-none">
-        <?= $this->Form->create($Profile); ?>
+        <?= $this->Form->create(); ?>
         <div class="body-container padding-none">
 
         <?= $this->Form->input('active', ['label' => 'عدد فعال سازی', 'dir' => 'ltr']); ?>
@@ -50,5 +50,5 @@ $this->extend('TabProfiles');
     </div>
 </div>
 
-<?php endforeach; ?>
+<?php endif ?>
 </div>

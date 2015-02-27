@@ -35,8 +35,43 @@ Configure::write('Rita.Users', [
  *  on user login be must checking this list
  */
     'loginCheckList' => [
-       'incompleteProfile' => true,
-       'confirmedEmail' => false, 
+       'completedProfile' => true,
+       'confirmedEmail' => false,
+       'confirmedMobile' => true 
+    ],
+    
+    'CheckList' => [
+       'completedProfile' => [
+           'status' => true,
+           'message' => 'لطفا پروفایل خودتون را کامل کنید.',
+           'action' => [
+            	'plugin' => 'Rita/Users',
+            	'controller' => 'Profiles',
+            	'action' => 'personal',
+            	'prefix' => 'client'
+           ]
+       ],
+       'confirmedEmail' => [
+           'status' => false,
+           'message' => 'لطفا پروفایل خودتون را کامل کنید.',
+           'action' => [
+            	'prefix' => 'client',
+            	'plugin' => 'Rita/Users',
+            	'controller' => 'Profiles',
+            	'action' => 'activeEmail'
+           ]        
+        ],
+       'confirmedMobile' => [
+           'status' => true,
+           'message' => 'جهت تکمیل فرایند اهراز هویت و فعال سازی محیط کاربری الزامیست یک شماره موبایل در سیستم ثبت  و  آن را فعال نمایید.',
+           'action' => [
+            	'prefix' => 'client',
+                'plugin' => 'Rita/Users',
+            	'controller' => 'Profiles',
+            	'action' => 'activeMobile',
+
+            ] 
+        ]
     ]
 ]);
 require __DIR__ . '/events.php';

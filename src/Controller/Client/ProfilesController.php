@@ -110,12 +110,70 @@ class ProfilesController extends AppController
         $this->set('user', $user);
     }
 
+    /**
+     * ProfilesController::activeEmail()
+     * 
+     * @return void
+     */
+    public function activeEmail()
+    {
 
-    public function confirmList()
+    }
+
+
+    /**
+     * ProfilesController::activeMobile()
+     * 
+     * @return void
+     */
+    public function activeMobile()
+    {
+        $Profile = $this->Profiles->newEntity();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $Profile = $this->Profiles->patchEntity($Profile,$this->request->data(), ['validate' => 'mobile']);
+            
+            if(!$Profile->errors()){
+                $this->_sendSMS($this->request->data);
+            }
+        }
+          $this->set('Profile', $Profile);
+    }
+    
+    
+    /**
+     * ProfilesController::_sendSMS()
+     * 
+     * @param mixed $param
+     * @return
+     */
+    private function _sendSMS($param)
     {
         
-        $lists = [];
-        $this->set(compact('lists'));
+        $param['code'] = rand(1000,9999);
         
+        
+        
+        if(!preg_match('/^09[123]\d{8}$/', $param['mobile'])){
+            $this->Flash->info('شماره مبایل صحیح نمیباشد.لطفا با فرمت   09123456789 وارد کنید.');
+            return;
+        }
+        $client = new \Cake\Network\Http\Client(['host' => 'parsasms.com']);
+        $response =$client->get('/tools/urlservice/send/',[
+            'username' => 'sepehr31330',
+            'password' => '31330w',
+            'from' => '30001818031330',
+            'to' => $param['mobile'],
+            'message' => 'کد فعال سازی : ' . $param['code'] 
+        ]);
+        
+        if($response->body === "20"){
+            $this->Flash->error('.این شماره اس ام اس تبلیغاتی را مسدود کرده است.');
+            return;
+            
+        }
+        $param['ref'] = $response->body;
+        $this->request->session()->write('sms',$param); 
     }
+  
 }

@@ -13,7 +13,7 @@ class Profile extends Entity
     
     
     protected $_virtual = [
-        'full_name',
+        //'full_name',
         'newmob'
         
     ]; 
@@ -50,26 +50,26 @@ class Profile extends Entity
 
 
 
-    protected function _setMobile($mobile)
-    {
-        //$m = $this->_properties['mobile'];
-        $m = [
-          'current' => 09181117209,
-          'changed' => false,
-          'old' => null  
-        
-        ];
-        //$this->set('mobile',$m);
-        
-        Log::debug($mobile);
-        
-        return $mobile;
-    }
-    
-    protected function _getMobile($mobile)
-    {
-          //  Log::debug($this->_properties['mobile']);
-        return [1,1];
-    }        
+  //  protected function _setMobile($mobile)
+//    {
+//        //$m = $this->_properties['mobile'];
+//        $m = [
+//          'current' => 09181117209,
+//          'changed' => false,
+//          'old' => null  
+//        
+//        ];
+//        //$this->set('mobile',$m);
+//        
+//        Log::debug($mobile);
+//        
+//        return $mobile;
+//    }
+//    
+//    protected function _getMobile($mobile)
+//    {
+//          //  Log::debug($this->_properties['mobile']);
+//        return [1,1];
+//    }        
             
 }

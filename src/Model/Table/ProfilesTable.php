@@ -48,19 +48,6 @@ class ProfilesTable extends Table
     }
 
 
-
-    /**
-     * ProfilesTable::_initializeSchema()
-     * 
-     * @param mixed $schema
-     * @return
-     */
-    protected function _initializeSchema(Schema $schema)
-    {
-        $schema->columnType('mobile', 'json');
-        return $schema;
-    }
-    
     
     
     /**
@@ -96,6 +83,22 @@ class ProfilesTable extends Table
         return $validator;
     }
 
+    public function validationMobile(Validator $validator)
+    {
+        $validator
+            ->requirePresence('mobile', true)
+            ->notEmpty('mobile', 'تکمیل این فیلد اجباری می باشد.')
+        ->add('mobile', [
+            'unique' => [
+                'rule' => 'validateUnique', 
+                'provider' => 'table',
+                'message' => 'این شماره قبلا مورد استفاده قرار گرفته است..'
+            ]
+        ]);
+
+
+        return $validator;
+    }
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.

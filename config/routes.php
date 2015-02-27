@@ -54,6 +54,19 @@ Router::prefix('client', function($routes)
         
     );
 
+
+    $routes->connect(
+        '/profile/activation/mobile/*',
+        ['plugin' => 'Rita/Users', 'controller' => 'Profiles','action' => 'activeMobile']
+        
+    );
+
+    $routes->connect(
+        '/profile/activation/email/*',
+        ['plugin' => 'Rita/Users', 'controller' => 'Profiles','action' => 'activeEmail']
+        
+    );
+
     $routes->connect(
         '/profile/:action/*',
         ['plugin' => 'Rita/Users', 'controller' => 'Profiles']

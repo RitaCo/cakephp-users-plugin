@@ -93,7 +93,7 @@ class UsersTable extends Table
      * @param mixed $options
      * @return
      */
-    public function beforeSave(Event $event, Entity $entity, $options = [])
+    public function beforeSave(Event $event, Entity $entity, \ArrayObject $options)
     {
         if ($entity->has('user_password')) {
             $entity->set('password', $entity->user_password);
@@ -101,7 +101,7 @@ class UsersTable extends Table
          
     }
 
-    public function validationDefaul1t(Validator $validator)
+    public function validationDef11aul1t(Validator $validator)
     {
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
@@ -117,8 +117,6 @@ class UsersTable extends Table
             ->notEmpty('email')
             ->requirePresence('password', 'create')
             ->notEmpty('password')
-            ->add('confirm_email', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('confirm_email')
             ->allowEmpty('meta')
             ->add('status', 'valid', ['rule' => 'boolean'])
             ->requirePresence('status', 'create')
@@ -168,11 +166,7 @@ class UsersTable extends Table
             ->add('email', 'valid', ['rule' => 'email'])
             ->requirePresence('email', 'create')
             ->notEmpty('email', 'تکمیل این فیلد اجباری می باشد.')
-        ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table','message' => 'این ایمیل توسط شخص دیگری مورد استفاده قرار گرفته است.'])
-        ->add('role_id', 'valid', ['rule' => 'numeric'])
-        ->requirePresence('role_id', 'create')
-        ->notEmpty('role_id');
-
+        ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table','message' => 'این ایمیل توسط شخص دیگری مورد استفاده قرار گرفته است.']);
         return $validator;
     }
 
@@ -282,20 +276,7 @@ class UsersTable extends Table
     }
 
 
-    
-    /**
-     * UsersTable::newUserEntity()
-     * 
-     * @param mixed $data
-     * @return
-     */
-    public function newUserEntity($data)
-    {
-        return $this->newEntity($data,[
-            'associated' => ['Profiles'],
-            'validate' => 'register'
-        ]);  
-    }
+ 
     /**
      * UsersTable::register()
      *
@@ -303,10 +284,12 @@ class UsersTable extends Table
      * @param mixed $options
      * @return
      */
-    public function register(EntityInterface $entity, $options = [])
+    public function register(EntityInterface $entity,  $options = [])
     {
+        $data = [];
+
         $configs = array_merge($options, $this->getConfig('Register'));
-        $entity->hiddenProperties([]);
+        
 
         $event = $this->dispatchEvent('RitaUser.User.beforeCreate', [$entity, $options]);
         
@@ -318,18 +301,23 @@ class UsersTable extends Table
             return false;
         }
         
-        $entity->role_id = $configs['roleID'];
+
         $err = $entity->errors();
-        if (!empty($err)) {
+        if(!empty($err)){
             return false;
         }
-                
+        
+        $entity->role_id = $configs['roleID'];        
         $entity->uuid = String::uuid();
         $entity->status = true;
-        $entity->set('profile', new Profile);
+        $entity->profile  = [];
         $entity->meta = \Cake\Core\Configure::read('Rita.Users.metaFields');
         
-       // $this->__confirmEmail($entity, $configs);
+//        $entity = $this->patchEntity($entity,$data,[
+//            'associated' => ['Profiles'],
+//            //'validate' => 'register'
+//        ]);  
+//
         $res = $this->save($entity);
         $this->dispatchEvent('RitaUser.User.afterCreate', [$entity]);
         return $res;

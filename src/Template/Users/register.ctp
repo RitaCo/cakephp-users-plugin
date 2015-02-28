@@ -1,7 +1,7 @@
 <?php
 
 $this->layout = 'login';
-
+ $this->assign('title','تبت کاربر جدید');
 
 ?>
 
@@ -24,7 +24,7 @@ $this->layout = 'login';
                     </div>
             
             		<div class="body-footer">
-                <?= $this->Form->submit('ایجاد'); ?>
+                <?= $this->Form->submit('ایجاد شود'); ?>
             		</div>
                 <?= $this->Form->end() ?>
                     </div>

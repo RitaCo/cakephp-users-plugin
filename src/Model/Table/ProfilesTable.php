@@ -17,6 +17,7 @@ use Cake\Validation\Validator;
 use Cake\Utility\String;
 use Rita\Users\Model\Entity\User;
 use Rita\Users\Model\Entity\Profile;
+use \ArrayObject;
 
 Type::map('json', 'Rita\Tools\Database\Type\JsonType');
 

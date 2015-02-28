@@ -1,7 +1,7 @@
 <?php
 
 $this->layout = 'login';
-
+ $this->assign('title','ورود به پنل کاربری');
 
 ?>
 

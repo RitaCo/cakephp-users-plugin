@@ -20,32 +20,34 @@ class User extends Entity
   
  
     protected $_accessible = [
-        'uuid' => true,
-        'role_id' => true,
-        'email' => true,
-        'password' => true,
-        'confirm_email' => true,
-        'meta' => true,
-        'status' => true,
-        'hidden' => true,
-        'role' => true,
-        'old_password' => true,
-        'user_password' =>true,
-        'confirm_password' => true,
-        'accounting' => true,
-        'profile' => true,
+//        'uuid' => true,
+//        'role_id' => true,
+//        'email' => true,
+//        'password' => true,
+//        'confirm_email' => true,
+//        'meta' => true,
+//        'status' => true,
+//        'hidden' => true,
+//        'role' => true,
+//        'old_password' => true,
+//        'user_password' =>true,
+//        'confirm_password' => true,
+//        'accounting' => true,
+//        'profile' => true,
+
+        '*' => true
     ];
 
-    protected $_hidden = [
-        'password',
-        'hidden',
-    ];
-
+ //   protected $_hidden = [
+//        'password',
+//        'hidden',
+//    ];
+//
 
     protected function _getProfile($profile)
     {
                       
-        if ($profile === null) {
+        if (!$this->isNew() && $profile === null) {
             $profiles = TableRegistry::get('Rita/Users.Profiles');
             return $profiles->find('all',['user_id' => $this->_properties['id']])
                 
@@ -100,6 +102,8 @@ class User extends Entity
      */
     protected function _setPassword($password)
     {
-        return (new DefaultPasswordHasher)->hash($password);
+
+            return (new DefaultPasswordHasher)->hash($password);
+
     }
 }

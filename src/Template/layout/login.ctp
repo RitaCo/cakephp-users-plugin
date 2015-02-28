@@ -3,22 +3,23 @@
 <head>
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>
-		نیازمندی‌های استان همدان
-		<?= $this->fetch('title') ?>
-	</title>
+    <meta name="google-site-verification" content="LL8zRgC1EoHNFRA8KbbtuM-apiqbOixIHtSo3K_nu8Y" />
+	<?= $this->Rita->pageTitle('سپهر، رسانه نیازمندی‌های همدان'); ?>
+    <?= $this->Rita->pageDescription('سپهر، جامع‌ترین رسانه تبلیغاتی و نیازمندی‌های استان همدان'); ?>
+    <?= $this->Rita->pageKeywords('hamedan','همدان','تبلیغات','سپهر غرب', 'سپهر','روزنامه','نیازمندی ها','آگهی','استان همدان'); ?>
+    
+    	
 	<?= $this->Html->meta('icon') ?>
 
 
 
 	
+	
 		<?= $this->Rita->loadingCSS() ?>
 		<?= $this->Rita->loadingJS() ?>
 		
-		
 				
-		
-		
+		<?= $this->Html->css('front.css') ?>
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>

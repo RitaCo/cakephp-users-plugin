@@ -24,18 +24,19 @@ class Profile extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
-        'first_name' => true,
-        'last_name' => true,
-        'phone' => true,
-        'mobile' => true,
-        'sex' => true,
-        'brith' => true,
-        'avatarEmail' => true,
-        'websiteUrl' => true,
-        'twitterUrl' => true,
-        'facebookUrl' => true,
-        'user' => true,
+       // 'user_id' => true,
+//        'first_name' => true,
+//        'last_name' => true,
+//        'phone' => true,
+//        'mobile' => true,
+//        'sex' => true,
+//        'brith' => true,
+//        'avatarEmail' => true,
+//        'websiteUrl' => true,
+//        'twitterUrl' => true,
+//        'facebookUrl' => true,
+//        'user' => true,
+        '*' => true
     ];
 
     /**

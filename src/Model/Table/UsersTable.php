@@ -3,7 +3,7 @@ namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\Validation\Validator;
-use Cake\Auth\DefaultPasswordHasher;
+use Cake\Auth\WeakPasswordHasher;
 use Cake\Event\Event;
 use Cake\ORM\Entity;
 use Cake\Datasource\EntityInterface;
@@ -76,7 +76,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['email'],'این ایمیل در سیستم وجود دارد'));
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
         return $rules;
     }
@@ -93,40 +93,43 @@ class UsersTable extends Table
      * @param mixed $options
      * @return
      */
-    public function beforeSave(Event $event, Entity $entity, \ArrayObject $options)
+    public function beforeSave(Event $event, Entity $entity)
     {
-        if ($entity->has('user_password')) {
-            $entity->set('password', $entity->user_password);
-        }
          
+        if ($entity->has('user_password')) {
+            $entity->set('password', $entity->user_password,['setter' => false]);
+           
+           $entity->unsetProperty('user_password');
+        }
+          
     }
 
-    public function validationDef11aul1t(Validator $validator)
-    {
-        $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->add('uuid', 'valid', ['rule' => 'uuid'])
-            ->requirePresence('uuid', 'create')
-            ->notEmpty('uuid')
-            ->add('role_id', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('role_id', 'create')
-            ->notEmpty('role_id')
-            ->add('email', 'valid', ['rule' => 'email'])
-            ->requirePresence('email', 'create')
-            ->notEmpty('email')
-            ->requirePresence('password', 'create')
-            ->notEmpty('password')
-            ->allowEmpty('meta')
-            ->add('status', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('status', 'create')
-            ->notEmpty('status')
-            ->add('hidden', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('hidden', 'create')
-            ->notEmpty('hidden');
-
-        return $validator;
-    }
+//    public function validationDef11aul1t(Validator $validator)
+//    {
+//        $validator
+//            ->add('id', 'valid', ['rule' => 'numeric'])
+//            ->allowEmpty('id', 'create')
+//            ->add('uuid', 'valid', ['rule' => 'uuid'])
+//            ->requirePresence('uuid', 'create')
+//            ->notEmpty('uuid')
+//            ->add('role_id', 'valid', ['rule' => 'numeric'])
+//            ->requirePresence('role_id', 'create')
+//            ->notEmpty('role_id')
+//            ->add('email', 'valid', ['rule' => 'email'])
+//            ->requirePresence('email', 'create')
+//            ->notEmpty('email')
+//            ->requirePresence('password', 'create')
+//            ->notEmpty('password')
+//            ->allowEmpty('meta')
+//            ->add('status', 'valid', ['rule' => 'boolean'])
+//            ->requirePresence('status', 'create')
+//            ->notEmpty('status')
+//            ->add('hidden', 'valid', ['rule' => 'boolean'])
+//            ->requirePresence('hidden', 'create')
+//            ->notEmpty('hidden');
+//
+//        return $validator;
+//    }
 
 
 
@@ -136,7 +139,7 @@ class UsersTable extends Table
      * @param mixed $validator
      * @return
      */
-    public function validationRegister(Validator $validator)
+    public function validationNewUser(Validator $validator)
     {
         $validator
         ->requirePresence('user_password', 'create')
@@ -286,112 +289,45 @@ class UsersTable extends Table
      */
     public function register(EntityInterface $entity,  $options = [])
     {
-        $data = [];
+        
 
         $configs = array_merge($options, $this->getConfig('Register'));
         
 
-        $event = $this->dispatchEvent('RitaUser.User.beforeCreate', [$entity, $options]);
+       // $event = $this->dispatchEvent('RitaUser.User.beforeCreate', [$entity, $options]);
         
-        if ($event->result instanceof Response) {
-            return $event->result;
-        }
+  //      if ($event->result instanceof Response) {
+//            return $event->result;
+//        }
         
-        if ($event->isStopped()) {
-            return false;
-        }
-        
+      //  if ($event->isStopped()) {
+//            return false;
+//        }
+  
+          
+        $entity = $this->patchEntity($entity,$entity->toArray(),[
+            'associated' => ['Profiles'],
+            'validate' => 'newUser'
+        ]);  
+   
 
-        $err = $entity->errors();
-        if(!empty($err)){
-            return false;
-        }
+
         
         $entity->role_id = $configs['roleID'];        
         $entity->uuid = String::uuid();
         $entity->status = true;
-        $entity->profile  = [];
+        $entity->profile  = new Profile;
         $entity->meta = \Cake\Core\Configure::read('Rita.Users.metaFields');
-        
-//        $entity = $this->patchEntity($entity,$data,[
-//            'associated' => ['Profiles'],
-//            //'validate' => 'register'
-//        ]);  
-//
+ 
+
         $res = $this->save($entity);
+        
         $this->dispatchEvent('RitaUser.User.afterCreate', [$entity]);
         return $res;
     }
 
 
 
-    /**
-     * UsersTable::__confirmEmail()
-     *
-     * @param mixed $config
-     * @return
-     */
-    private function __confirmEmail(EntityInterface $entity, $configs = [])
-    {
-        
-        if (!$configs['confirmEmail']) {
-            //  disable confirmEmail
-            $entity->confirm_email = null;
-            return;
-        }
-        // enable confirmEmail
-        $entity->confirm_email = 0;
-        
-        if (!is_array($entity->meta)) {
-            $entity->meta= [];
-        }
-        
-        $entity->meta = array_merge(
-            $entity->meta,
-            [
-            'email' => [
-                'token' => $this->__generateToken(),
-                'expires' => time() + (7 * 24 * 60 * 60),
-            ]
-            ]
-        );
-    
-        
-        
-    }
-    
-
-    /**
-     * UsersTable::__confirmSms()
-     *
-     * @param mixed $entity
-     * @param mixed $configs
-     * @return void
-     */
-    private function __confirmSms(EntityInterface $entity, $configs = [])
-    {
-        
-        if (!$configs['confirmSms']) {
-            //  disable confirmEmail
-            $entity->confirm_sms = null;
-            return;
-        }
-
-        if (!is_array($entity->meta)) {
-            $entity->meta= [];
-        }
-    
-        // enable confirmEmail
-        $entity->confirm_sms = 0;
-         $entity->meta = array_merge($entity->meta, [
-            'sms' => [
-                'token' => $this->__generateToken(4, false),
-                'expires' => time() + (7 * 24 * 60 * 60),
-            ]
-
-        ]);
-        
-    }
         
     
     

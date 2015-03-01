@@ -13,7 +13,7 @@ $this->layout = 'login';
                     <span class="header-caption">فرم ثبت کاربر جدید</span>
                 </div>
                 <div class="panel-body padding-none">
-                    <?= $this->Form->create($user,['context' => ['validator' => 'register']]); ?>
+                    <?= $this->Form->create($User); ?>
                     <div class="body-container padding-none ">
 
 				<?= $this->Form->input('email', ['label' => 'ایمیل', 'dir' => 'ltr' ]); ?>

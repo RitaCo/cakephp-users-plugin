@@ -71,10 +71,10 @@ class UsersController extends AppController
             return $this->redirect($this->Auth->redirectUrl());
         }
         
-        $user = $this->Users->newEntity($this->request->data,['validate' => 'register']);
+        $user = $this->Users->newEntity($this->request->data);
      
         if ($this->request->is('post')) {
-                 
+                 $this->Users->patchEntity($user, $this->request->data);
                 $this->dispatchEvent('RitaUsers.Users.beforeRegister');
     
             if ($this->Users->register($user)) {
@@ -86,6 +86,6 @@ class UsersController extends AppController
             }
         }
         
-        $this->set(compact('user'));
+        $this->set('User', $user);
     }
 }

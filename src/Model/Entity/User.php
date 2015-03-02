@@ -102,8 +102,7 @@ class User extends Entity
      */
     protected function _setPassword($password)
     {
-        
-            return (new DefaultPasswordHasher)->hash($password);
-
+        \Cake\Log\Log::debug(['val' => $password,'entity'=>$this]);
+        return (new DefaultPasswordHasher)->hash($password);
     }
 }

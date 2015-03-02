@@ -1,7 +1,7 @@
 <?php
 
 $this->extend('TabProfiles');
-
+ $this->assign('title','پروفایل > مشخصات شخصی');
 ?>
 <div class="tab-body active padding-none" id="<?= $this->request->param('action'); ?>">
     <?= $this->Form->create($Profile); ?>

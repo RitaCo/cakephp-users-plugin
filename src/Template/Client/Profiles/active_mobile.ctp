@@ -1,7 +1,7 @@
 <?php
 
 $this->extend('TabProfiles');
-
+$this->assign('title','پروفایل > تایید شماره موبایل');
 ?>
 
 <div class="tab-body active " id="<?= $this->request->param('action'); ?>">

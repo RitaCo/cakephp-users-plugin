@@ -3,10 +3,9 @@ namespace Rita\Users\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\Validation\Validator;
-use Cake\Auth\WeakPasswordHasher;
+use Cake\Auth\DefaultPasswordHasher;
 use Cake\Event\Event;
-use Cake\ORM\Entity;
-use Cake\Datasource\EntityInterface;
+use Cake\ORM\Marshaller;
 use Cake\Event\EventManager;
 use Cake\Event\EventManagerTrait;
 use Cake\Utility\String;
@@ -16,7 +15,7 @@ use Cake\Database\Schema\Table as Schema;
 use Rita\Core\ORM\Table;
 use Rita\Users\Model\Entity\User;
 use Rita\Users\Model\Entity\Profile;
-
+use Rita\Core\ORM\Entity;
 
 
 /**
@@ -33,12 +32,9 @@ class UsersTable extends Table
      */
     public function initialize(array $config)
     {
-        
         $this->table('user_members');
         $this->displayField('email');
         $this->primaryKey('id');
-        
-        
         
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
@@ -50,6 +46,8 @@ class UsersTable extends Table
         ]);  
         
     }
+
+
            
     /**
      * UsersTable::_initializeSchema()
@@ -64,10 +62,6 @@ class UsersTable extends Table
     }
 
 
-
-
-        
-
     /**
      * UsersTable::buildRules()
      * 
@@ -80,9 +74,6 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
         return $rules;
     }
-
-
-
 
 
     /**
@@ -184,26 +175,22 @@ class UsersTable extends Table
     public function validationPassword(Validator $validator)
     {
         
-        $validator->requirePresence('id', true)
-            ->notEmpty('id', 'تکمیل این فیلد اجباری می باشد.')
+        $validator
             ->requirePresence('old_password', true)
-               ->notEmpty('old_password', 'تکمیل این فیلد اجباری می باشد.')
+            ->notEmpty('old_password', 'تکمیل این فیلد اجباری می باشد.')
             ->add('old_password', [
                 'custom' => [
                     'rule' => function ($value, $context) {
                         
-                        return (new DefaultPasswordHasher)->check($value, $context['data']['password']);
+                        return (new DefaultPasswordHasher)->check($value, $this->__getPassword($context['data']['id']));
                     },
                     'message' => 'رمزعبور فعلی صحیح نمی‌باشد',
                     'last' => true
                 ]
             ])
-        ->requirePresence(
-            'user_password',
-            true
-        )
-        ->notEmpty('user_password', 'تکمیل این فیلد اجباری می باشد.')
-            ->add('user_password', [
+        ->requirePresence('new_password',true)
+        ->notEmpty('new_password', 'تکمیل این فیلد اجباری می باشد.')
+            ->add('new_password', [
                 'custom' => [
                     'rule' => function ($value, $context)
                     {
@@ -216,16 +203,16 @@ class UsersTable extends Table
                     'last' => true
                 ]
             ])
-            ->requirePresence('confirm_password', true)
-            ->notEmpty('confirm_password', 'تکمیل این فیلد اجباری می باشد.')
+            ->requirePresence('confirm_new_password', true)
+            ->notEmpty('confirm_new_password', 'تکمیل این فیلد اجباری می باشد.')
             ->add(
-                'confirm_password',
+                'confirm_new_password',
                 'custom',
                 [
                 'rule' => function($value, $context) {
                     
                     
-                    return ($value === $context['data']['user_password']);
+                    return ($value === $context['data']['new_password']);
                 },
                 'message' => 'تکرار با رمز عبور مطابقت ندارد'
                 ]
@@ -242,26 +229,45 @@ class UsersTable extends Table
      * @param mixed $options
      * @return void
      */
-    public function changePassword(EntityInterface $entity, $options = [])
-    {
+    public function changePassword($userId = null, $data = null )
+    { 
+        $user = $this->newEntity(); 
         
-           $entity->accessible('current_password', true);
-         //  $this->validator()->requirePresence('current_password','update')
-//           ->add('current_password','custom',[
-//                'rule' => function($value,$context) {
-//                             //$cuPass$this->__getPassword($entity->id);
-//                            //$cuPass = (new DefaultPasswordHasher)->check($entity->current_password,$caPass);
-//                    
-//                    return false;
-//                },
-//                'message' => 'تکرار با رمز عبور مطابقت ندارد'
-//            ]);
-//            
+       if($userId === null) {
+       
+        
+            return $user;
+       }
+       
+       $data['id'] = $userId;
+       $user = $this->newEntity( $data, [
+            'fieldList' => ['old_password', 'new_password', 'confirm_new_password'],
+            'validate' => 'password'
+        ]);
+       $errors = $user->errors();
+       
+        if(!empty($errors)){
+              return $user;     
+        }
+        
+        //$l = [];
+        
+        $o = $user->new_password;
+//        $l['o'] = $o;
+//        
+//        $user = $this->get($userId);
+//        $l['passDb'] = $user;
+//        $user->set('password', $o);
+//        $l['passSet'] = $user;
+//        //$z = $this->save($user);
+//        $l['z'] = $z;
+//        $this->log($l);
 
-            $this->errors('current_password', ['Password is required.']);
-           return $entity;
-            $this->validate($entity);
-          
+        $user = $this->newEntity(['id' => $userId, 'password' => $o]);
+        $z = $this->save($user);
+        \Cake\Log\Log::debug([$z,$user]);
+        return $z;
+        
     }
 
 
@@ -275,7 +281,7 @@ class UsersTable extends Table
      */
     private function __getPassword($id)
     {
-        return current($this->get(1, ['fields' => ['password']])->toArray());
+        return current($this->get($id, ['fields' => ['password']])->toArray());
     }
 
 

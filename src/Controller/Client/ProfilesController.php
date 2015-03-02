@@ -2,7 +2,9 @@
 namespace Rita\Users\Controller\Client;
 
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 use Rita\Users\Controller\AppController;
+
 
 class ProfilesController extends AppController
 {
@@ -25,18 +27,6 @@ class ProfilesController extends AppController
     }
 
 
-    /**
-     * ProfilesController::initialize()
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        
-        parent::initialize();
-        $this->loadModel('Rita/Users.Users');
-    }
-    
     
     /**
      * ProfilesController::index()
@@ -91,22 +81,20 @@ class ProfilesController extends AppController
      */
     public function password()
     {
-        $user = null;
         
+       $Users = TableRegistry::get('Rita/Users.Users');
+       
+        $user = $Users->newEntity();
+        
+
         if ($this->request->is([ 'post', 'put'])) {
-            $user = $this->Users->get($this->userID);
-             //
-              $this->request->data('password', $user->password);
-            $user = $this->Users->patchEntity(
-                $user,
-                $this->request->data,
-                ['validate' => 'password']
-            );
-                  
-            if ($this->Users->save($user)) {
+            $res = $Users->changePassword($this->userID,$this->request->data);
+            
+            if (empty($res->errors())) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
                 return $this->redirect(['action' => 'password']);
             }
+                $user = $res;
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                              
                         

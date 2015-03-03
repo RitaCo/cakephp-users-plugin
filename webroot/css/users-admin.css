@@ -60,3 +60,14 @@
   background-color: #E36159;
   color: #FFF300;
 }
+#UsersListSection .UserBlock {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column ;
+      -ms-flex-direction: column ;
+          flex-direction: column ;
+  -webkit-flex: 1 1 0%;
+      -ms-flex: 1 1 0%;
+          flex: 1 1 0%;
+}

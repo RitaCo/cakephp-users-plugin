@@ -10,12 +10,14 @@ $this->assign('title','پروفایل > تایید شماره موبایل');
     <div class="box-caption">شماره فعلی و تایید شده</div>
     <div class="box-body">
       <i class="icon-phonealt"></i> 
-      <div style="display: inline-block; margin-right: 10px; font-size: 20px;">  <?= (empty($Profile['mobile']))? 'شماره ایی ثبت نشده است.': p($Profile['mobile']); ?></div>
+      <div style="display: inline-block; margin-right: 10px; font-size: 20px;">  <?= (empty($noMobile))? 'شماره ایی ثبت نشده است.': p($noMobile); ?></div>
       
     </div>
 
 </div>
-<?php if(!$this->Session->check('sms')): ?>
+<?php 
+if(empty($noMobile)) {
+if(!$this->Session->check('sms')): ?>
 <div class="ui-box">    
     <div class="box-caption">معرفی شماره موبایل .</div>
     <div class="box-body padding-none">
@@ -50,5 +52,7 @@ $this->assign('title','پروفایل > تایید شماره موبایل');
     </div>
 </div>
 
-<?php endif ?>
+<?php endif;
+}
+ ?>
 </div>

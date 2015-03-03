@@ -46,7 +46,7 @@ class User extends Entity
 
     protected function _getProfile($profile)
     {
-                      
+             \Cake\Log\Log::debug($profile);           
         if (!$this->isNew() && $profile === null) {
             $profiles = TableRegistry::get('Rita/Users.Profiles');
             return $profiles->find('all',['user_id' => $this->_properties['id']])
@@ -102,7 +102,7 @@ class User extends Entity
      */
     protected function _setPassword($password)
     {
-        \Cake\Log\Log::debug(['val' => $password,'entity'=>$this]);
+     
         return (new DefaultPasswordHasher)->hash($password);
     }
 }

@@ -121,7 +121,9 @@ class ProfilesController extends AppController
      */
     public function activeMobile()
     {
-        
+        $pro = $this->Profiles->get($this->profileID);
+        $pro = $pro->mobile;
+        $this->set('noMobile',$pro);
                 
         if (!$this->request->session()->check('sms')) { 
         

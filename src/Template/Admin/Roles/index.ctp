@@ -15,7 +15,7 @@ use \Cake\Routing\Router;
 		<div class="body-header padding-none">
 			<div class="ui-toolbar">
 				<div class="toolbar-band ">
-					<a class="btn" href="<?= Router::url(['action' => 'add'])?>">	
+					<a class="btn" href="<?= Router::url(['action' => '#'])?>">	
 						<i class="  icon-createfolder"></i>
 						<span>جدید</span>
 					</a>

@@ -38,6 +38,26 @@ Router::prefix('admin', function($routes)
             '/',
             ['controller' => 'DashBoard','action' => 'index']
         );
+        
+        $routes->connect(
+            '/profile/:id',
+            ['plugin' => 'Rita/Users', 'controller' => 'Profiles','action' => 'index'],
+            [
+                'id' => '[0-9]+',
+                'pass' => ['id']
+            ]
+        
+        );
+
+        $routes->connect(
+            '/profile/:id/:action/*',
+            ['plugin' => 'Rita/Users', 'controller' => 'Profiles'],
+            [
+                'id' => '[0-9]+',
+                'pass' => ['id']
+            ]
+        
+        );
         $routes->fallbacks();
     });
 });

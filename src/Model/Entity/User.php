@@ -12,6 +12,14 @@ use Rita\Core\ORM\Entity;
 class User extends Entity
 {
 
+
+
+    protected $_virtual = [
+        'avator',
+        'role'
+    ];
+
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -38,24 +46,37 @@ class User extends Entity
         '*' => true
     ];
 
- //   protected $_hidden = [
-//        'password',
-//        'hidden',
-//    ];
-//
+    protected $_hidden = [
+        'password',
+
+    ];
+
 
     protected function _getProfile($profile)
     {
-             \Cake\Log\Log::debug($profile);           
+                    
         if (!$this->isNew() && $profile === null) {
             $profiles = TableRegistry::get('Rita/Users.Profiles');
-            return $profiles->find('all',['user_id' => $this->_properties['id']])
+            return $profiles->find('all',[ 'conditions' => ['Profiles.user_id' => $this->_properties['id']]])
                 
                 ->cache('users-profiles-'.$this->_properties['id'], 'rita')->first();
         }
         return $profile;    
             
     }
+    
+    protected function _getRole($profile)
+    {
+                    
+        if (!$this->isNew() && $profile === null) {
+            $profiles = TableRegistry::get('Rita/Users.Roles');
+            return $profiles->find('all',[ 'conditions' =>['id' => $this->_properties['role_id']]])
+                
+                ->cache('users-roles-'.$this->_properties['role_id'], 'rita')->first();
+        }
+        return $profile;    
+            
+    }    
 
     /**
      * User::_setEmail()
@@ -104,5 +125,16 @@ class User extends Entity
     {
      
         return (new DefaultPasswordHasher)->hash($password);
+    }
+    
+    
+    
+    protected function _getAvator($avator)
+    {
+        if (!$this->isNew() && $avator=== null) {
+            $Hash = md5( strtolower( trim($this->_properties['email']) ) );
+			return 'http://rokh.chehrak.com/'.$Hash;
+        }
+        return $avator;        
     }
 }

@@ -13,7 +13,7 @@ class Profile extends Entity
     
     
     protected $_virtual = [
-        'full_name'
+    //    'full_name'
         
         
     ]; 
@@ -46,6 +46,10 @@ class Profile extends Entity
      */
     protected function _getFullName()
     {
+        if($this->isNew()) {
+            return;
+        }
+        
         return  $this->_properties['first_name']. '  ' .$this->_properties['last_name'];
     }
 

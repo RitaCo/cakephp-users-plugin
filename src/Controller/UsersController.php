@@ -3,6 +3,8 @@ namespace Rita\Users\Controller;
 
 use \Cake\Core\Configure;
 use Cake\Event\Event;
+use Rita\Core\ORM\Entity;
+use Cake\ORM\EntityInterface;
 use Rita\Users\Controller\AppController;
 
 
@@ -71,13 +73,14 @@ class UsersController extends AppController
             return $this->redirect($this->Auth->redirectUrl());
         }
         
-        $user = $this->Users->newEntity($this->request->data);
+        $user = $this->Users->newEntity();
      
         if ($this->request->is('post')) {
-                 $this->Users->patchEntity($user, $this->request->data);
+               
                 $this->dispatchEvent('RitaUsers.Users.beforeRegister');
-    
-            if ($this->Users->register($user)) {
+                $user= $this->Users->newUser($this->request->data());
+                
+            if ( $user === true) {
                 $this->Flash->success('نام کاربری شما با موفقیت ایجاد شد.');
                 $this->dispatchEvent('RitaUsers.Users.afterRegister', [$user]);
                 return $this->redirect(['action' => 'login']);

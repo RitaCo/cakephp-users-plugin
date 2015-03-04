@@ -89,12 +89,12 @@ class ProfilesController extends AppController
 
         if ($this->request->is([ 'post', 'put'])) {
             $res = $Users->changePassword($this->userID,$this->request->data);
-            
-            if (empty($res->errors())) {
+            $user = $res->errors();
+            if (empty($user)) {
                 $this->Flash->success('تغییرات با موفقیت ذخیره شدند.');
                 return $this->redirect(['action' => 'password']);
             }
-                $user = $res;
+                
                 $this->Flash->error('عملیات ذخیره سازی باشکست ربرو شد.');
                              
                         

@@ -47,7 +47,7 @@ class User extends Entity
     ];
 
     protected $_hidden = [
-        'password',
+     //   'password',
 
     ];
 
@@ -123,8 +123,8 @@ class User extends Entity
      */
     protected function _setPassword($password)
     {
-     
-        return (new DefaultPasswordHasher)->hash($password);
+        $hasher = new DefaultPasswordHasher;
+        return  $hasher->hash($password);
     }
     
     

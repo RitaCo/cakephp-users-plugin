@@ -13,10 +13,10 @@ use Cake\Utility\String;
 use Cake\ORM\RulesChecker;
 use Cake\Database\Schema\Table as Schema;
 use Rita\Core\ORM\Table;
+use Rita\Core\ORM\Entity;
+use Cake\Datasource\EntityInterface;
 use Rita\Users\Model\Entity\User;
 use Rita\Users\Model\Entity\Profile;
-use Rita\Core\ORM\Entity;
-
 
 /**
  * Users Model
@@ -88,7 +88,7 @@ class UsersTable extends Table
     {
          
         if ($entity->has('user_password')) {
-            $entity->set('password', $entity->user_password,['setter' => false]);
+            $entity->set('password', $entity->user_password);
            
            $entity->unsetProperty('user_password');
         }
@@ -130,7 +130,7 @@ class UsersTable extends Table
      * @param mixed $validator
      * @return
      */
-    public function validationNewUser(Validator $validator)
+    public function validationRegister(Validator $validator)
     {
         $validator
         ->requirePresence('user_password', 'create')
@@ -293,7 +293,7 @@ class UsersTable extends Table
      * @param mixed $options
      * @return
      */
-    public function register(EntityInterface $entity,  $options = [])
+    public function newUser($entity,  $options = [])
     {
         
 
@@ -311,13 +311,15 @@ class UsersTable extends Table
 //        }
   
           
-        $entity = $this->patchEntity($entity,$entity->toArray(),[
+        $entity = $this->newEntity($entity,[
             'associated' => ['Profiles'],
-            'validate' => 'newUser'
+            'validate' => 'register'
         ]);  
    
-
-
+        $err = $entity->errors();
+        if($err){
+            return $entity;
+        }
         
         $entity->role_id = $configs['roleID'];        
         $entity->uuid = String::uuid();
@@ -325,11 +327,11 @@ class UsersTable extends Table
         $entity->profile  = new Profile;
         $entity->meta = \Cake\Core\Configure::read('Rita.Users.metaFields');
  
-
+        $entity->hiddenProperties([]);
         $res = $this->save($entity);
         
         $this->dispatchEvent('RitaUser.User.afterCreate', [$entity]);
-        return $res;
+        return true;
     }
 
 

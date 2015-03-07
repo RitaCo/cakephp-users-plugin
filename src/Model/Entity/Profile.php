@@ -13,7 +13,7 @@ class Profile extends Entity
     
     
     protected $_virtual = [
-    //    'full_name'
+        'full_name'
         
         
     ]; 

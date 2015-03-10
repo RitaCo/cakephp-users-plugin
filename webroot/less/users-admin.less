@@ -115,6 +115,7 @@
                 border-bottom:2px solid #F79231;
                 padding-bottom: 5px;
                 font-family: wirans;
+                min-height: 39px;
             }
             
             h4{
@@ -127,39 +128,69 @@
             
     }
     .status{
-        background-color: rgba(255, 53, 53, 0.76);
+            
           .flex-box();
-          .flex-col();
-          margin: 0px 2px;
-         >div{
-            flex:1 1 auto;
+          .flex-row();
+          margin: 0px 10px;
+          
+          .row{
+            background-color: #ecf0f1;
+             .flex(1);
+             .flex-box();
+             .flex-col();
+             
+          }
+          .row+.row{
+            //border-top: 1px dotted rgba(255, 53, 53, 0.76);
+            margin-top:3px ;         
+        
+          }
+         .row > .item{
+            background-color: rgb(127, 140, 141);
+            flex:0 1 35%;
             padding: 7px 0px;
             text-align: center;
-            color: #fff;
-            text-shadow: 1px 1px 0px #444;
+            color: rgb(255, 255, 255);
+                font-size: 17px;
+                font-family: wiraniansans;
+                font-weight: 300;   
+            text-shadow: 1px 1px 0px rgba(68, 68, 68, 0.7);
             i{
                 font-size: 20px;
             }
          }
          
-         .role{
-            font-family: wyekan;
-            line-height: 1;
-            font-size: 16px;
+         .row > .value{
+            flex: 1 1 0%;
+            align-self: center;
+            padding: 0px 10px;
+            font-family: wroya;
+            font-weight: bold;
+            font-size: 14px;
+            color: #305944;
          }
          
+  
+         
 
-         div+ div{
-            border-right: 2px solid #fff ;
-         } 
+         
     }
      .actions{
-        padding: 5px 10px;
-        margin: 10px;
-        background-color: #ddd;
+        padding: 5px 5px;
+        margin: 20px 5px 5px;
+        background-color: #34495e;
+        .btn-group a{
+            font-size: 13px!important;
+            padding-left: 6px;
+            padding-right: 6px;
+            margin-bottom: 0px;
+        }
      }           
 }
 
+#UsersListSection .layout-cell{
+    padding: 20px;
+}
 
 .UserBlock:hover .avator img{
                    width: 110px !important;

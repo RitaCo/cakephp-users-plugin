@@ -38,6 +38,11 @@ $this->extend('TabProfiles');
 		
 		</div>    
 		<div class="body-footer">
+    <a class="btn" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'index'])?>">	
+						<i class="  icon-pageforward"></i>
+						<span>بازگشت</span>
+					</a>
+
     <?= $this->Form->submit('ذخیره'); ?>
 		</div>
     <?= $this->Form->end();?>

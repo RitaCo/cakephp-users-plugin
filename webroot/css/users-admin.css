@@ -117,6 +117,7 @@
   border-bottom: 2px solid #F79231;
   padding-bottom: 5px;
   font-family: wirans;
+  min-height: 39px;
 }
 #UsersListSection .UserBlock .body .detils h4 {
   padding-top: 10px;
@@ -124,39 +125,71 @@
   font-weight: 400;
 }
 #UsersListSection .UserBlock .status {
-  background-color: rgba(255, 53, 53, 0.76);
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column ;
+      -ms-flex-direction: column ;
+          flex-direction: column ;
+  margin: 0px 10px;
+}
+#UsersListSection .UserBlock .status .row {
+  background-color: #ecf0f1;
+  -webkit-flex: 1 1 0%;
+      -ms-flex: 1 1 0%;
+          flex: 1 1 0%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: row ;
       -ms-flex-direction: row ;
           flex-direction: row ;
-  margin: 0px 2px;
 }
-#UsersListSection .UserBlock .status > div {
-  -webkit-flex: 1 1 auto;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+#UsersListSection .UserBlock .status .row + .row {
+  margin-top: 3px ;
+}
+#UsersListSection .UserBlock .status .row > .item {
+  background-color: #7f8c8d;
+  -webkit-flex: 0 1 35%;
+      -ms-flex: 0 1 35%;
+          flex: 0 1 35%;
   padding: 7px 0px;
   text-align: center;
-  color: #fff;
-  text-shadow: 1px 1px 0px #444;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: wiraniansans;
+  font-weight: 300;
+  text-shadow: 1px 1px 0px rgba(68, 68, 68, 0.7);
 }
-#UsersListSection .UserBlock .status > div i {
+#UsersListSection .UserBlock .status .row > .item i {
   font-size: 20px;
 }
-#UsersListSection .UserBlock .status .role {
-  font-family: wyekan;
-  line-height: 1;
-  font-size: 16px;
-}
-#UsersListSection .UserBlock .status div + div {
-  border-right: 2px solid #fff ;
+#UsersListSection .UserBlock .status .row > .value {
+  -webkit-flex: 1 1 0%;
+      -ms-flex: 1 1 0%;
+          flex: 1 1 0%;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  padding: 0px 10px;
+  font-family: wroya;
+  font-weight: bold;
+  font-size: 14px;
+  color: #305944;
 }
 #UsersListSection .UserBlock .actions {
-  padding: 5px 10px;
-  margin: 10px;
-  background-color: #ddd;
+  padding: 5px 5px;
+  margin: 20px 5px 5px;
+  background-color: #34495e;
+}
+#UsersListSection .UserBlock .actions .btn-group a {
+  font-size: 13px!important;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-bottom: 0px;
+}
+#UsersListSection .layout-cell {
+  padding: 20px;
 }
 .UserBlock:hover .avator img {
   width: 110px !important;

@@ -6,7 +6,7 @@ use \Cake\Routing\Router;
    $this->assign('note', 'فهرست تمامی کاربران عضو در سیستم');
 ?>
 
-
+<?= $this->element('Rita/Core.pagintor'); ?>
 
 <section id="UsersListSection" class="com-layout-columns col3">
 <?php  foreach ($users as $user) : ?>
@@ -24,15 +24,33 @@ use \Cake\Routing\Router;
                         </div>
                         
                         <div class="status">
-                            <div class="role"><?= $user->role->name; ?></div>
-                            <div><i class="icon-user"></i></div>
-                            <div><i class="icon-user"></i></div>
-                        
+                            <div class="row">
+                                <div class="item" >نقش</div>
+                                <div class="value"><?= $user->role->name; ?></div>
+                            </div>
+                            <div class="row">
+                                <div class="item" >وضعیت</div>
+                                <div class="value"><?= $user->getStatus(); ?></div>
+                            </div>
+                            <div class="row">
+                                <div class="item" >عضویت</div>
+                                <div class="value"><?= (new \Rita\Tools\I18n\Time($user->created))->i18nFormat("dd/MMMM/YYYY hh:mm",'Asia/Tehran','fa-IR@calendar=persian'); ?></div>
+                            </div>
+                            <div class="row">
+                                <div class="item" >آخرین تغییرات</div>
+                                <div class="value"><?= (new \Rita\Tools\I18n\Time($user->modified))->i18nFormat("dd/MMMM/YYYY hh:mm",'Asia/Tehran','fa-IR@calendar=persian'); ?></div>
+                            </div>                            
+                            <div class="row">
+                                <div class="item" >آخرین فعالیت</div>
+                                <div class="value">در دسترس نمی‌باشد</div>
+                            </div>                            
                         </div>
                         
                         <div class="actions">
                             <div class="btn-group">
-                                <?= $this->Html->link('پروفایل',['action' => 'index','controller' => 'Profiles',$user->id],['class' => 'btn btn-red btn-flat']); ?>
+                                <?= $this->Html->link('مشخصات',['action' => 'index','controller' => 'Profiles',$user->id],['class' => 'btn btn-action btn-flat']); ?>
+                                <?= $this->Html->link('دخل و خرج',['action' => 'index','controller' => 'Profiles',$user->id],['class' => 'btn btn-action btn-flat']); ?>
+                                <?= $this->Html->link('عملیات سیستمی',['action' => 'index','controller' => 'Profiles',$user->id],['class' => 'btn btn-action btn-flat']); ?>
                             </div>
                         
                         </div>

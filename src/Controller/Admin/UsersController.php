@@ -19,6 +19,9 @@ class UsersController extends AppController
     public function index()
     {
         $query = $this->Users->find('all')->contain(['Roles' => ['fields' => ['id','name']]]);
+        $this->paginate = [
+            'limit' => 12
+        ];
         $this->set('users', $this->paginate($query));
     }
 

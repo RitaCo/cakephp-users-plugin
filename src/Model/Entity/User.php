@@ -52,6 +52,26 @@ class User extends Entity
     ];
 
 
+    /**
+     * User::getStatus()
+     * 
+     * @return
+     */
+    public function getStatus()
+    {
+        if($this->isNew()) {
+            return;
+        }
+        
+        return  $this->_properties['status'] ? 'فعال می باشد' : 'مسدود شده است.[درجه ۲]';
+    }
+
+    /**
+     * User::_getProfile()
+     * 
+     * @param mixed $profile
+     * @return
+     */
     protected function _getProfile($profile)
     {
                     

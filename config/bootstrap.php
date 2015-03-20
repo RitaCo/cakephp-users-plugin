@@ -2,6 +2,31 @@
 use \Cake\Core\Configure;
 
 Configure::write('Rita.Users', [
+
+/**
+ * Auth Config
+ */
+    'AuthConfig' => [
+        'authorize' => ['Controller'],
+        'authenticate' => [
+            'Form' => [
+                'fields' => ['username' => 'email', 'password' => 'password'],
+                'contain' => ['Profiles'],
+                'userModel' => 'Rita/Users.Users',
+            ]
+        ], 
+        'loginAction' => [
+            'prefix'=> false,
+            'controller' => 'Users',
+            'action' => 'login',
+            'plugin' => 'Rita/Users'
+        ], 
+        'authError' => 'دسترسی برای شما مقدور نمی‌باشد',
+        'loginRedirect' => '/client',
+        'logoutRedirect' => '/',
+    
+    ],    
+     
 /**
  *  user setting field save to json in meta field
  */
